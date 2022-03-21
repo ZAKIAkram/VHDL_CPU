@@ -27,7 +27,9 @@ architecture RTL of CPU_PC is
         S_Init,
         S_Pre_Fetch,
         S_Fetch,
-        S_Decode
+        S_Decode,
+        S_ADDI,
+        S_LUI
     );
 
     signal state_d, state_q : State_type;
@@ -119,6 +121,47 @@ begin
             when S_Decode =>
 
                 state_d <= S_Error;
+                if status.IR(6 downto 0) = "0110111" then
+                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
+                    cmd.PC_sel <= PC_from_pc;
+                    cmd.PC_WE <= '1';
+                    state_d <= S_LUI;
+                elsif status.IR(6 downto 0) = "0010011" and status.IR(14 downto 12) = "000" then
+                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
+                    cmd.PC_sel <= PC_from_pc;
+                    cmd.PC_WE <= '1';
+                    state_d <= S_ADDI;
+                else 
+                    state_d <= S_Error;
+                end if;
+            when S_LUI =>
+                    --rd <- ImmU + 0
+                    cmd.PC_X_sel <= PC_X_cst_x00;
+                    cmd.PC_Y_sel <= PC_Y_immU;
+                    cmd.RF_we <= '1';
+                    cmd.DATA_sel <= DATA_from_pc;
+                    -- lecture mem[PC]
+                    cmd.ADDR_sel <= ADDR_from_pc;
+                    cmd.mem_ce <= '1';
+                    cmd.mem_we <= '0';
+                    -- next state
+                    state_d <= S_Fetch;
+            when S_ADDI => 
+                    cmd.ALU_Y_sel <= ALU_Y_immI;
+                    cmd.ALU_op <= ALU_plus;
+                    cmd.DATA_sel <= DATA_from_alu;
+                    -- ecriture dans le registre
+                    cmd.RF_we <= '1';
+                    -- lecture mem[PC]
+                    cmd.mem_ce <= '1';
+                    cmd.mem_we <= '0';
+                    cmd.ADDR_sel <= ADDR_from_pc;
+                    -- next state
+                    state_d <= S_Fetch;
+
+
+
+
 
                 -- Décodage effectif des instructions,
                 -- à compléter par vos soins
