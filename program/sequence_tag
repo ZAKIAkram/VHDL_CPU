@@ -2,6 +2,7 @@
 LUI
 REBOUCLAGE
 ADDI
+<<<<<<< HEAD
 ADD
 SUB
 AUIPC
@@ -18,3 +19,5 @@ SRAI
 SRL
 SRLI
 
+=======
+>>>>>>> f8a23f0598ca7f6b9ef9ab8a8aa0775d1f720c70

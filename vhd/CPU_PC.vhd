@@ -156,7 +156,7 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                     state_d <= S_SUB;
-                elsif status.IR(6 downto 0) = "0010111" then
+                elsif status.IR(6 downto 0) = "0010111" and  then
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
