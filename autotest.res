@@ -2,7 +2,7 @@ addi        PASSED
 add         PASSED
 andi        PASSED
 and         PASSED
-auipc       FAILED
+auipc       PASSED
 lui         PASSED
 ori         PASSED
 or          PASSED
