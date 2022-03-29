@@ -201,12 +201,12 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                     state_d <= S_SRAI;
-                elsif status.IR(6 downto 0) = "0110011" and status.IR(14 downto 12) = "101" then 
+                elsif status.IR(6 downto 0) = "0110011" and status.IR(14 downto 12) = "101" and status.IR(31 downto 25) = "0000000" then 
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                     state_d <= S_SRL;
-                elsif status.IR(6 downto 0) = "0010011" and status.IR(14 downto 12) = "101" then 
+                elsif status.IR(6 downto 0) = "0010011" and status.IR(14 downto 12) = "101" and status.IR(31 downto 25) = "0000000" then 
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
@@ -216,7 +216,7 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                     state_d <= S_ANDI;
-                elsif status.IR(6 downto 0) = "0110011" and status.IR(14 downto 12) = "111" then 
+                elsif status.IR(6 downto 0) = "0110011" and status.IR(14 downto 12) = "111" and status.IR(31 downto 25) = "0000000" then 
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
