@@ -126,19 +126,16 @@ Running test: and
 INFO: [Simtcl 6-17] Simulation restarted
 Note: @ 00000400 = 1024
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1024] = 00100F93
+Note: memory[1024] = 00100213
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1025] = 00000F13
+Note: memory[1025] = 00100293
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1026] = 01EFFFB3
+Note: memory[1026] = 00527FB3
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 Note: memory[1027] = FFFFFFFF
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 
 Note: pout expect   : 0x00000001  get : 0x00000001
-Time: 60 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
-
-Note: pout expect   : 0x00000000  get : 0x00000000
 Time: 120 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
 Note: PASSED 
 Time: 120 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
@@ -502,4 +499,4 @@ Failure: Assertion violation
 Time: 210 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
 $finish called at time : 210 ns : File "/user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
 ## exit
-INFO: [Common 17-206] Exiting xsim at Tue Mar 29 17:56:53 2022...
+INFO: [Common 17-206] Exiting xsim at Tue Mar 29 18:02:29 2022...
