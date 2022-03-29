@@ -332,7 +332,10 @@ begin
                 cmd.LOGICAL_op <= LOGICAL_and;
                 cmd.DATA_sel <= DATA_from_logical;
                 --ecriture dans le registre 
-                cmd.RF_we <= '1';cmd.DATA_sel <= DATA_from_logical;
+                cmd.RF_we <= '1';
+                --lecture mem[pc]
+                cmd.mem_ce <= '1';
+                cmd.mem_we <= '0';
                 cmd.ADDR_sel <= ADDR_from_pc;
                 --next state
                 state_d <= S_Fetch;
