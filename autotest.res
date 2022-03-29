@@ -1,7 +1,7 @@
 addi        PASSED
 add         PASSED
 andi        PASSED
-and         FAILED
+and         PASSED
 auipc       FAILED
 lui         PASSED
 ori         PASSED
