@@ -244,14 +244,14 @@ begin
                     cmd.PC_WE <= '1';
                     state_d <= S_SLTIU;                  
                 elsif status.IR(6 downto 0) = "1100011" then
-                  case status.IR(14 downto 12) is
-                    when "000" => state_d <= S_Branchement;
-                    when "001" => state_d <= S_Branchement;
-                    when "100" => state_d <= S_Branchement;
-                    when "101" => state_d <= S_Branchement;
-                    when "110" => state_d <= S_Branchement;
-                    when "111" => state_d <= S_Branchement;
-                    when others =>
+                    case status.IR(14 downto 12) is
+                        when "000" => state_d <= S_Branchement;
+                        when "001" => state_d <= S_Branchement;
+                        when "100" => state_d <= S_Branchement;
+                        when "101" => state_d <= S_Branchement;
+                        when "110" => state_d <= S_Branchement;
+                        when "111" => state_d <= S_Branchement;
+                        when others =>
                       state_d <= S_Error;
                   end case;
                 else state_d <= S_Error;
@@ -493,13 +493,13 @@ begin
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
                 case status.JCOND is
-                when False =>
+                when True =>
                     -- PC <- PC + imm B
                     cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                 -- sinon
-                when others =>
+                when False =>
                     -- PC <- PC + 4
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
