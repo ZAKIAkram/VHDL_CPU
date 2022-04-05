@@ -11,7 +11,7 @@ slt x31, x4, x5
 addi x5, x5, -11
 slt x31, x4, x5
 
-# max_cycle 50
+# max_cycle 100
 # pout_start
 # 00000001
 # 00000000
