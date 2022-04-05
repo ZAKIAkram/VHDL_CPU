@@ -254,9 +254,7 @@ begin
                     when others =>
                       state_d <= S_Error;
                   end case;
-                else state_d <= S_Error;
                 end if;
-
             when S_LUI =>
                     --rd <- ImmU + 0
                     cmd.PC_X_sel <= PC_X_cst_x00;
