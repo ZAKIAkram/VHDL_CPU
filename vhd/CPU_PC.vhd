@@ -498,18 +498,19 @@ begin
             when S_BEQ =>
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
-                if status.JCOND = False then
+                case status.JCOND is
+                when true =>
                     -- PC <- PC + imm B
                     cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                 -- sinon
-                else
+                when others =>
                     -- PC <- PC + 4
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
-                end if;
+                end case;
                 --next state
                 state_d <= S_Pre_Fetch;
             when S_BNE =>
