@@ -1,15 +1,19 @@
 # TAG = blti
         .text 
-    addi x4, x0, 17
+        
+        
     addi x31, x0, 0
-    blti x4, 18, saut_blti
+for_blti:
+    addi x4, x0, 17
+    addi x31, x31, 1
+    blti x4, 5, for_blti
     
-transparent:
-    addi x31, x0, 1
-saut_blti:
-    addi x31, x31, 5
+
         #max cycle 100
         #pout_start
         #00000000
-        #00000005
+        #00000001
+        #00000003
+        #00000006
+        #0000000A
         #pout_end
