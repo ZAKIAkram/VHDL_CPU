@@ -509,12 +509,8 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                 end if;
-                --lecture mem[pc]
-                cmd.mem_ce <= '1';
-                cmd.mem_we <= '0';
-                cmd.ADDR_sel <= ADDR_from_pc;
                 --next state
-                state_d <= S_Fetch;
+                state_d <= S_Pre_Fetch;
             when S_BNE =>
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
@@ -530,12 +526,8 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                 end if;
-                --lecture mem[pc]
-                cmd.mem_ce <= '1';
-                cmd.mem_we <= '0';
-                cmd.ADDR_sel <= ADDR_from_pc;
                 --next state
-                state_d <= S_Fetch;
+                state_d <= S_Pre_Fetch;
             when S_BGE =>
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
@@ -551,12 +543,8 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                 end if;
-                --lecture mem[pc]
-                cmd.mem_ce <= '1';
-                cmd.mem_we <= '0';
-                cmd.ADDR_sel <= ADDR_from_pc;
                 --next state
-                state_d <= S_Fetch;
+                state_d <= S_Pre_Fetch;
             when S_BGEU =>
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
@@ -572,12 +560,8 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                 end if;
-                --lecture mem[pc]
-                cmd.mem_ce <= '1';
-                cmd.mem_we <= '0';
-                cmd.ADDR_sel <= ADDR_from_pc;
                 --next state
-                state_d <= S_Fetch;
+                state_d <= S_Pre_Fetch;
             when S_BLT =>
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
@@ -593,12 +577,8 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                 end if;
-                --lecture mem[pc]
-                cmd.mem_ce <= '1';
-                cmd.mem_we <= '0';
-                cmd.ADDR_sel <= ADDR_from_pc;
                 --next state
-                state_d <= S_Fetch;
+                state_d <= S_Pre_Fetch;
             when S_BLTU =>
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
@@ -614,12 +594,8 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                 end if;
-                --lecture mem[pc]
-                cmd.mem_ce <= '1';
-                cmd.mem_we <= '0';
-                cmd.ADDR_sel <= ADDR_from_pc;
                 --next state
-                state_d <= S_Fetch;
+                state_d <= S_Pre_Fetch;
             when S_SLT =>
                 -- rd <- rs1 + rs2
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
@@ -634,7 +610,7 @@ begin
                 state_d <= S_Fetch;
             when S_SLTI =>
                 -- rd <- rs1 + rs2
-                cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
+                cmd.AlU_Y_sel <= ALU_Y_immI;
                 cmd.DATA_sel <= DATA_from_slt;
                 --ecriture dans le registre
                 cmd.RF_we <= '1';
@@ -658,7 +634,7 @@ begin
                 state_d <= S_Fetch;
             when S_SLTIU =>
                 -- rd <- rs1 + rs2
-                cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
+                cmd.AlU_Y_sel <= ALU_Y_rf_immI;
                 cmd.DATA_sel <= DATA_from_slt;
                 --ecriture dans le registre
                 cmd.RF_we <= '1';
