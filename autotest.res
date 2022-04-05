@@ -16,4 +16,12 @@ srl         PASSED
 sub         PASSED
 xori        PASSED
 xor         PASSED
-
+SLT         PASSED
+SLTI        PASSED
+SLTU        PASSED
+SLTIU       PASSED
+BLT         PASSED
+BNE         PASSED
+BEQ         PASSED
+BGE         PASSED
+BGEU        PASSED
