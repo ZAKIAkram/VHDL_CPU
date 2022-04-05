@@ -241,9 +241,11 @@ begin
                 elsif status.IR(6 downto 0) = "1100011" and status.IR(14 downto 12) = "111" then
                     state_d <= S_BGEU;
                 elsif status.IR(6 downto 0) = "0110011" and status.IR(14 downto 12) = "010" then
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
+                     cmd.PC_X_sel <= PC_X_pc;
+                  cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
+
+                  cmd.PC_we <= '1';
+                  cmd.PC_sel <= PC_from_pc;
                     state_d <= S_SLT;
                 elsif status.IR(6 downto 0) = "0010011" and status.IR(14 downto 12) = "010" then
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
@@ -605,11 +607,8 @@ begin
                 --ecriture dans le registre
                 cmd.RF_we <= '1';
                 --lecture mem[PC]
-                cmd.mem_ce <= '1';
-                cmd.mem_we <= '0';
-                cmd.ADDR_sel <= ADDR_from_pc;
                 --next state
-                state_d <= S_Fetch;
+                state_d <= S_Pre_Fetch;
             when S_SLTI =>
                 -- rd <- rs1 + rs2
                 cmd.AlU_Y_sel <= ALU_Y_immI;
