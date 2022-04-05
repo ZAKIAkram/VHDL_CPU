@@ -1,8 +1,8 @@
 # TAG = blti
         .text 
-    addi x4, x0, 0x0011
-    addi x31, x0, 0x0000
-    blti x4, 0x0111, saut_blti
+    addi x4, x0, 17
+    addi x31, x0, 0
+    blti x4, 18, saut_blti
     
 transparent:
     addi x31, x0, 1
