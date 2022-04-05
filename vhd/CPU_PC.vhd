@@ -45,7 +45,7 @@ architecture RTL of CPU_PC is
         S_SRAI,
         S_SRL,
         S_SRLI,
-        S_Branchement
+        S_Branchement,
         S_SLT,
         S_SLTI,
         S_SLTU,
