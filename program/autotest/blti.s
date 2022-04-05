@@ -9,7 +9,7 @@ for_blti:
     blti x4, 3, for_blti
     
 
-        #max cycle 100
+        #max cycle 300
         #pout_start
         #00000000
         #00000001
