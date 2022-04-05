@@ -496,7 +496,7 @@ begin
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
                 case status.JCOND is
-                when true =>
+                when False =>
                     -- PC <- PC + imm B
                     cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
                     cmd.PC_sel <= PC_from_pc;
