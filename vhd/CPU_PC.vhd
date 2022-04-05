@@ -244,7 +244,7 @@ begin
                     cmd.PC_WE <= '1';
                     state_d <= S_SLTIU;                  
                 end if;
-                if status.IR(6 downto 0) = "1100011" then
+                else if status.IR(6 downto 0) = "1100011" then
                   case status.IR(14 downto 12) is
                     when "000" => state_d <= S_Branchement;
                     when "001" => state_d <= S_Branchement;
