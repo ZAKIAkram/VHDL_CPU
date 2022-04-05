@@ -8,7 +8,7 @@ transparent:
     addi x31, x0, 0x0001
 saut_blti:
     addi x31, x31, 0x1111
-        #max cycle 50
+        #max cycle 100
         #pout_start
         #00000000
         #00001111
