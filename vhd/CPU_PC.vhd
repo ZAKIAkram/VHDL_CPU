@@ -260,6 +260,7 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                     state_d <= S_SLTIU;
+                    
                 end if;
             when S_LUI =>
                     --rd <- ImmU + 0
@@ -497,7 +498,7 @@ begin
             when S_BEQ =>
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
-                if status.JCOND = True then
+                if status.JCOND = False then
                     -- PC <- PC + imm B
                     cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
                     cmd.PC_sel <= PC_from_pc;
