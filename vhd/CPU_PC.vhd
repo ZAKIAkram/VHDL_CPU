@@ -634,7 +634,7 @@ begin
                 state_d <= S_Fetch;
             when S_SLTIU =>
                 -- rd <- rs1 + rs2
-                cmd.AlU_Y_sel <= ALU_Y_rf_immI;
+                cmd.AlU_Y_sel <= ALU_Y_immI;
                 cmd.DATA_sel <= DATA_from_slt;
                 --ecriture dans le registre
                 cmd.RF_we <= '1';
