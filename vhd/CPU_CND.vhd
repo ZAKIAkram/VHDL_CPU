@@ -30,7 +30,7 @@ begin
 
     z <= '1' when rs1 = alu_y else '0';
     
-    s <= res(32);
+    s <= resultat(32);
 
     entree_1 <= (z xor IR(12)) and not(IR(14));
     
