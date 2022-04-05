@@ -8,8 +8,8 @@
     addi x5, x0, 0x0101
     slt  x31, x4, x5
     
-    addi x4, x0, 0xF011 
-    addi x5, x0, 0xF101
+    addi x4, x0, 0x7011 
+    addi x5, x0, 0x7101
     slt  x31, x4, x5
         #max cycle 50
         #pout_start

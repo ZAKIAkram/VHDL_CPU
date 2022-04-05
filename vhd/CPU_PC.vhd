@@ -229,37 +229,37 @@ begin
                     cmd.PC_WE <= '1';
                     state_d <= S_AND;
                 elsif status.IR(6 downto 0) = "1100011" and status.IR(14 downto 12) = "000" then
-                    state_d <= S_BEQ
+                    state_d <= S_BEQ;
                 elsif status.IR(6 downto 0) = "1100011" and status.IR(14 downto 12) = "001" then
-                    state_d <= S_BNE
+                    state_d <= S_BNE;
                 elsif status.IR(6 downto 0) = "1100011" and status.IR(14 downto 12) = "100" then
-                    state_d <= S_BLT
+                    state_d <= S_BLT;
                 elsif status.IR(6 downto 0) = "1100011" and status.IR(14 downto 12) = "101" then
-                    state_d <= S_BGE
+                    state_d <= S_BGE;
                 elsif status.IR(6 downto 0) = "1100011" and status.IR(14 downto 12) = "110" then
-                    state_d <= S_BLTU
+                    state_d <= S_BLTU;
                 elsif status.IR(6 downto 0) = "1100011" and status.IR(14 downto 12) = "111" then
-                    state_d <= S_BGEU
+                    state_d <= S_BGEU;
                 elsif status.IR(6 downto 0) = "0110011" and status.IR(14 downto 12) = "010" then
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
-                    state_d <= S_SLT
+                    state_d <= S_SLT;
                 elsif status.IR(6 downto 0) = "0010011" and status.IR(14 downto 12) = "010" then
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
-                    state_d <= S_SLTI
+                    state_d <= S_SLTI;
                 elsif status.IR(6 downto 0) = "0110011" and status.IR(14 downto 12) = "011" then
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
-                    state_d <= S_SLTU
+                    state_d <= S_SLTU;
                 elsif status.IR(6 downto 0) = "0010011" and status.IR(14 downto 12) = "011" then
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
-                    state_d <= S_SLTIU
+                    state_d <= S_SLTIU;
                 end if;
             when S_LUI =>
                     --rd <- ImmU + 0
@@ -497,7 +497,7 @@ begin
             when S_BEQ =>
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
-                if status.JCOND = '1' then
+                if status.JCOND = True then
                     -- PC <- PC + imm B
                     cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
                     cmd.PC_sel <= PC_from_pc;
@@ -518,7 +518,7 @@ begin
             when S_BNE =>
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
-                if status.JCOND = '0' then
+                if status.JCOND = False then
                     -- PC <- PC + imm B
                     cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
                     cmd.PC_sel <= PC_from_pc;
@@ -539,7 +539,7 @@ begin
             when S_BGE =>
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
-                if status.JCOND = '1' then
+                if status.JCOND = True then
                     -- PC <- PC + imm B
                     cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
                     cmd.PC_sel <= PC_from_pc;
@@ -560,7 +560,7 @@ begin
             when S_BGEU =>
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
-                if status.JCOND = '1' then
+                if status.JCOND = True then
                     -- PC <- PC + imm B
                     cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
                     cmd.PC_sel <= PC_from_pc;
@@ -581,7 +581,7 @@ begin
             when S_BLT =>
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
-                if status.JCOND = '1' then
+                if status.JCOND = True then
                     -- PC <- PC + imm B
                     cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
                     cmd.PC_sel <= PC_from_pc;
@@ -602,7 +602,7 @@ begin
             when S_BLTU =>
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
-                if status.JCOND = '1' then
+                if status.JCOND = True then
                     -- PC <- PC + imm B
                     cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
                     cmd.PC_sel <= PC_from_pc;
