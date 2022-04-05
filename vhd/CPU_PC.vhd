@@ -45,12 +45,7 @@ architecture RTL of CPU_PC is
         S_SRAI,
         S_SRL,
         S_SRLI,
-        S_BEQ,
-        S_BNE,
-        S_BGE,
-        S_BGEU,
-        S_BLT,
-        S_BLTU,
+        S_Branchement
         S_SLT,
         S_SLTI,
         S_SLTU,
@@ -228,18 +223,6 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                     state_d <= S_AND;
-                elsif status.IR(6 downto 0) = "1100011" and status.IR(14 downto 12) = "000" then
-                    state_d <= S_BEQ;
-                elsif status.IR(6 downto 0) = "1100011" and status.IR(14 downto 12) = "001" then
-                    state_d <= S_BNE;
-                elsif status.IR(6 downto 0) = "1100011" and status.IR(14 downto 12) = "100" then
-                    state_d <= S_BLT;
-                elsif status.IR(6 downto 0) = "1100011" and status.IR(14 downto 12) = "101" then
-                    state_d <= S_BGE;
-                elsif status.IR(6 downto 0) = "1100011" and status.IR(14 downto 12) = "110" then
-                    state_d <= S_BLTU;
-                elsif status.IR(6 downto 0) = "1100011" and status.IR(14 downto 12) = "111" then
-                    state_d <= S_BGEU;
                 elsif status.IR(6 downto 0) = "0110011" and status.IR(14 downto 12) = "010" then
                      cmd.PC_X_sel <= PC_X_pc;
                   cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
@@ -261,9 +244,21 @@ begin
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
-                    state_d <= S_SLTIU;
-                    
+                    state_d <= S_SLTIU;                  
                 end if;
+                if status.IR(6 downto 0) = "1100011" then
+                  case status.IR(14 downto 12) is
+                    when "000" => state_d <= S_Branchement;
+                    when "001" => state_d <= S_Branchement;
+                    when "100" => state_d <= S_Branchement;
+                    when "101" => state_d <= S_Branchement;
+                    when "110" => state_d <= S_Branchement;
+                    when "111" => state_d <= S_Branchement;
+                    when others =>
+                      state_d <= S_Error;
+                  end case;
+                end if;
+
             when S_LUI =>
                     --rd <- ImmU + 0
                     cmd.PC_X_sel <= PC_X_cst_x00;
