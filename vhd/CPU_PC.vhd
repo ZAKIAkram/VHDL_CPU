@@ -224,11 +224,9 @@ begin
                     cmd.PC_WE <= '1';
                     state_d <= S_AND;
                 elsif status.IR(6 downto 0) = "0110011" and status.IR(14 downto 12) = "010" then
-                     cmd.PC_X_sel <= PC_X_pc;
-                  cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-
-                  cmd.PC_we <= '1';
-                  cmd.PC_sel <= PC_from_pc;
+                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
+                    cmd.PC_sel <= PC_from_pc;
+                    cmd.PC_WE <= '1';
                     state_d <= S_SLT;
                 elsif status.IR(6 downto 0) = "0010011" and status.IR(14 downto 12) = "010" then
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
@@ -257,6 +255,7 @@ begin
                     when others =>
                       state_d <= S_Error;
                   end case;
+                else state_d <= S_Error;
                 end if;
 
             when S_LUI =>
