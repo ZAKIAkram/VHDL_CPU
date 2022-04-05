@@ -25,3 +25,4 @@ BNE         PASSED
 BEQ         PASSED
 BGE         PASSED
 BGEU        PASSED
+BLTU        PASSED
