@@ -9,6 +9,7 @@ transparent:
     addi x31, x0, 0x0001
 saut_bge:
     addi x31, x31, 10
+    bge x31, x4, transparent #pas de saut
         #max cycle 100
         #pout_start
         #00000000
