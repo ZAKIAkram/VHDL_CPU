@@ -243,7 +243,7 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                     state_d <= S_SLTIU;                  
-                else if status.IR(6 downto 0) = "1100011" then
+                elsif status.IR(6 downto 0) = "1100011" then
                   case status.IR(14 downto 12) is
                     when "000" => state_d <= S_Branchement;
                     when "001" => state_d <= S_Branchement;
@@ -254,6 +254,7 @@ begin
                     when others =>
                       state_d <= S_Error;
                   end case;
+                else state_d <= S_Error;
                 end if;
             when S_LUI =>
                     --rd <- ImmU + 0
