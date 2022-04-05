@@ -1,6 +1,6 @@
 # TAG = bgeu
         .text
-    addi x4, x0, 0x0701 
+    addi x4, x0, 0x0101 
     addi x5, x0, 0x0011
     addi x31, x0, 0x0000
     bgeu x4, x5, saut_bgeu
