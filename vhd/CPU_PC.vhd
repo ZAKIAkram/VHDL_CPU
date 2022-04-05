@@ -492,7 +492,7 @@ begin
                 cmd.ADDR_sel <= ADDR_from_pc;
                 --next state
                 state_d <= S_Fetch;
-            when S_BEQ =>
+            when S_Branchement =>
                 cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
                 -- si rs1 = rs2
                 case status.JCOND is
@@ -508,91 +508,6 @@ begin
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
                 end case;
-                --next state
-                state_d <= S_Pre_Fetch;
-            when S_BNE =>
-                cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
-                -- si rs1 = rs2
-                if status.JCOND = False then
-                    -- PC <- PC + imm B
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                -- sinon
-                else
-                    -- PC <- PC + 4
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                end if;
-                --next state
-                state_d <= S_Pre_Fetch;
-            when S_BGE =>
-                cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
-                -- si rs1 = rs2
-                if status.JCOND = True then
-                    -- PC <- PC + imm B
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                -- sinon
-                else
-                    -- PC <- PC + 4
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                end if;
-                --next state
-                state_d <= S_Pre_Fetch;
-            when S_BGEU =>
-                cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
-                -- si rs1 = rs2
-                if status.JCOND = True then
-                    -- PC <- PC + imm B
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                -- sinon
-                else
-                    -- PC <- PC + 4
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                end if;
-                --next state
-                state_d <= S_Pre_Fetch;
-            when S_BLT =>
-                cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
-                -- si rs1 = rs2
-                if status.JCOND = True then
-                    -- PC <- PC + imm B
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                -- sinon
-                else
-                    -- PC <- PC + 4
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                end if;
-                --next state
-                state_d <= S_Pre_Fetch;
-            when S_BLTU =>
-                cmd.AlU_Y_sel <= ALU_Y_rf_rs2;
-                -- si rs1 = rs2
-                if status.JCOND = True then
-                    -- PC <- PC + imm B
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_immB;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                -- sinon
-                else
-                    -- PC <- PC + 4
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                end if;
                 --next state
                 state_d <= S_Pre_Fetch;
             when S_SLT =>
