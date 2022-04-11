@@ -357,13 +357,13 @@ Note: memory[1026] = 01028293
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 Note: memory[1027] = 000280E7
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1028] = 0080006F
+Note: memory[1028] = 00C0006F
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 Note: memory[1029] = 003F8F93
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1030] = 00000213
+Note: memory[1030] = 000F8067
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1031] = 000280E7
+Note: memory[1031] = 00000213
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 Note: memory[1032] = FFFFFFFF
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
@@ -373,14 +373,11 @@ Time: 60 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/za
 
 Note: pout expect   : 0x00000004  get : 0x00000004
 Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
-
-Note: pout expect   : 0x00000007  get : 0x00000007
-Time: 300 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
 Note: PASSED 
-Time: 300 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
 Failure: Assertion violation
-Time: 300 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
-$finish called at time : 300 ns : File "/user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
+$finish called at time : 200 ns : File "/user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
 Preparing test: jal
 Running test: jal
 INFO: [Simtcl 6-17] Simulation restarted
@@ -388,17 +385,19 @@ Note: @ 00000400 = 1024
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 Note: memory[1024] = 00400F93
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1025] = 008000EF
+Note: memory[1025] = 0080006F
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1026] = 00C0006F
+Note: memory[1026] = 0100006F
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 Note: memory[1027] = 004F8F93
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1028] = 000F8067
+Note: memory[1028] = 00000093
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1029] = 00000213
+Note: memory[1029] = 00008067
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1030] = FFFFFFFF
+Note: memory[1030] = 00000213
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1031] = FFFFFFFF
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 
 Note: pout expect   : 0x00000004  get : 0x00000004
@@ -884,4 +883,4 @@ Failure: Assertion violation
 Time: 210 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
 $finish called at time : 210 ns : File "/user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
 ## exit
-INFO: [Common 17-206] Exiting xsim at Tue Apr 12 01:10:20 2022...
+INFO: [Common 17-206] Exiting xsim at Tue Apr 12 01:29:16 2022...
