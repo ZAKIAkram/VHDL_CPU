@@ -363,7 +363,9 @@ Note: memory[1029] = 003F8F93
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 Note: memory[1030] = 00000213
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1031] = FFFFFFFF
+Note: memory[1031] = 000280E7
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1032] = FFFFFFFF
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 
 Note: pout expect   : 0x00000001  get : 0x00000001
@@ -371,11 +373,14 @@ Time: 60 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/za
 
 Note: pout expect   : 0x00000004  get : 0x00000004
 Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
+
+Note: pout expect   : 0x00000007  get : 0x00000007
+Time: 300 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
 Note: PASSED 
-Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Time: 300 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
 Failure: Assertion violation
-Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
-$finish called at time : 200 ns : File "/user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
+Time: 300 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
+$finish called at time : 300 ns : File "/user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
 Preparing test: jal
 Running test: jal
 INFO: [Simtcl 6-17] Simulation restarted
@@ -877,4 +882,4 @@ Failure: Assertion violation
 Time: 210 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
 $finish called at time : 210 ns : File "/user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
 ## exit
-INFO: [Common 17-206] Exiting xsim at Tue Apr 12 00:58:57 2022...
+INFO: [Common 17-206] Exiting xsim at Tue Apr 12 01:07:05 2022...
