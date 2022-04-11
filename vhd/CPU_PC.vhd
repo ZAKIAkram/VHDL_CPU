@@ -342,12 +342,6 @@ begin
                         -- Etat suivant
                         state_d <= S_STORE;
                     end if;
-                elsif status.IR(6 downto 0) = "0100011" and status.IR(14 downto 12) = "001" then
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                    -- Etat suivant
-                    state_d <= S_SH;
                 elsif status.IR(6 downto 0) = "1101111" then
                     -- Etat suivant
                     state_d <= S_JAL;
@@ -657,35 +651,35 @@ begin
             when S_LW =>
                 cmd.DATA_sel <= DATA_from_mem;
                 cmd.RF_we <= '1';
-                cmd.RF_SIGN_enable <= TRUE;
+                cmd.RF_SIGN_enable <= '1';
                 cmd.RF_SIZE_sel <= RF_SIZE_word;
                 --next state
                 state_d <= S_Pre_Fetch;
             when S_LH =>
                 cmd.DATA_sel <= DATA_from_mem;
                 cmd.RF_we <= '1';
-                cmd.RF_SIGN_enable <= TRUE;
+                cmd.RF_SIGN_enable <= '1';
                 cmd.RF_SIZE_sel <= RF_SIZE_half;
                 --next state
                 state_d <= S_Pre_Fetch;
             when S_LB =>
                 cmd.DATA_sel <= DATA_from_mem;
                 cmd.RF_we <= '1';
-                cmd.RF_SIGN_enable <= TRUE;
+                cmd.RF_SIGN_enable <= '1';
                 cmd.RF_SIZE_sel <= RF_SIZE_byte;
                 --next state
                 state_d <= S_Pre_Fetch;
             when S_LHU =>
                 cmd.DATA_sel <= DATA_from_mem;
                 cmd.RF_we <= '1';
-                cmd.RF_SIGN_enable <= False;
+                cmd.RF_SIGN_enable <= '0';
                 cmd.RF_SIZE_sel <= RF_SIZE_half;
                 --next state
                 state_d <= S_Pre_Fetch;
             when S_LBU =>
                 cmd.DATA_sel <= DATA_from_mem;
                 cmd.RF_we <= '1';
-                cmd.RF_SIGN_enable <= TRUE;
+                cmd.RF_SIGN_enable <= '0';
                 cmd.RF_SIZE_sel <= RF_SIZE_word;
                 --next state
                 state_d <= S_Pre_Fetch;
