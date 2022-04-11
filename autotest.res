@@ -9,7 +9,7 @@ bgeu        PASSED
 blt         PASSED
 bltu        PASSED
 bne         PASSED
-jalr        TIMEOUT
+jalr        PASSED
 jal         PASSED
 lui         PASSED
 ori         PASSED
