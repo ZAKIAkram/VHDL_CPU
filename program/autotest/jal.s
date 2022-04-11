@@ -2,7 +2,7 @@
 
         .text
     addi x31, x0, 0x0004
-    jal x31, addition
+    jal addition
     j fin
 
     addition:
