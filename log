@@ -357,15 +357,17 @@ Note: memory[1026] = 01028293
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 Note: memory[1027] = 000280E7
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1028] = 00C0006F
+Note: memory[1028] = 0100006F
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 Note: memory[1029] = 003F8F93
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1030] = 000F8067
+Note: memory[1030] = 00000093
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1031] = 00000213
+Note: memory[1031] = 00008067
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1032] = FFFFFFFF
+Note: memory[1032] = 00000213
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1033] = FFFFFFFF
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 
 Note: pout expect   : 0x00000001  get : 0x00000001
@@ -883,4 +885,4 @@ Failure: Assertion violation
 Time: 210 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd
 $finish called at time : 210 ns : File "/user/7/.base/zakiak/home/projet_CEP/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
 ## exit
-INFO: [Common 17-206] Exiting xsim at Tue Apr 12 01:29:16 2022...
+INFO: [Common 17-206] Exiting xsim at Tue Apr 12 01:31:38 2022...

@@ -6,7 +6,8 @@
     j fin
     addition:
         addi x31, x31, 0x0003
-        jr x31
+        addi ra, x0, 0
+        ret
     fin:
         addi x4, x0, 0x0000
         #max_cycle 50
