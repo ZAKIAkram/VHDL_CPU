@@ -9,6 +9,7 @@ bgeu        PASSED
 blt         PASSED
 bltu        PASSED
 bne         PASSED
+jalr        FAILED
 jal         PASSED
 lui         PASSED
 ori         PASSED
