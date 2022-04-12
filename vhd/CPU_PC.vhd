@@ -270,6 +270,7 @@ begin
                   end case;
                 elsif status.IR(6 downto 0) = "0000011" then
                     -- AD <- rs1 + immS
+                    cmd.AD_we <= '1';
                     cmd.AD_Y_sel <= AD_Y_immI;
                     state_d <= S_LOAD;
                 elsif status.IR(6 downto 0) = "0100011" then
@@ -637,8 +638,8 @@ begin
                 --next state
                 state_d <= S_Pre_Fetch;
             when S_Pre_STORE => 
-              cmd.AD_we <= '1';
               -- AD <- rs1 + immS
+              cmd.AD_we <= '1';
               cmd.AD_Y_sel <= AD_Y_immS;
               state_d <= S_STORE;
             when S_STORE =>
