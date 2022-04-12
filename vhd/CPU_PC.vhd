@@ -663,13 +663,17 @@ begin
                 --next state
                 state_d <= S_Pre_Fetch;
             when S_LB =>
+                cmd.AD_Y_sel <= AD_Y_immI;
+                cmd.Ad_we <= '1';
+                --lecture memoire
+                cmd.ADDR_sel <= ADDR_from_ad;
+                cmd.mem_we <= '0';
+                cmd.mem_ce <= '1';
                 cmd.DATA_sel <= DATA_from_mem;
                 cmd.RF_we <= '1';
                 cmd.RF_SIGN_enable <= '1';
                 cmd.RF_SIZE_sel <= RF_SIZE_byte;
                 cmd.ADDR_sel <= ADDR_from_pc;
-                cmd.mem_ce <= '1';
-                cmd.mem_we <= '0';
                 --next state
                 state_d <= S_Fetch;
             when S_LHU =>
