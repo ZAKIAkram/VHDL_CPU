@@ -649,7 +649,13 @@ begin
                 cmd.mem_we   <= '1';
                 cmd.mem_ce   <= '1';
                 cmd.ADDR_sel <= ADDR_from_ad;
-                cmd.RF_SIZE_sel <= RF_SIZE_byte;
+                if status.IR(14 downto 12) = "000" then
+                    cmd.RF_SIZE_sel <= RF_SIZE_byte;
+                elsif status.IR(14 downto 12) = "001" then
+                    cmd.RF_SIZE_sel <= RF_SIZE_half;
+                elsif status.IR(14 downto 12) = "010" then
+                    cmd.RF_SIZE_sel <= RF_SIZE_word
+                end if;
         	state_d <= S_Pre_Fetch;
             when S_JAL =>
                 -- rd <-- pc + 4
