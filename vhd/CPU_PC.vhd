@@ -50,12 +50,18 @@ architecture RTL of CPU_PC is
         S_SLTI,
         S_SLTU,
         S_SLTIU,
+        S_LOAD,
+        S_LOAD_OR_STORE,
         S_LW,
         S_LB,
         S_LBU,
         S_LH,
         S_LHU,
+        S_Pre_STORE,
         S_STORE,
+        S_SW,
+        S_SB,
+        S_SH,
         S_JAL,
         S_JALR
             );
@@ -262,86 +268,17 @@ begin
                         when others =>
                       state_d <= S_Error;
                   end case;
-                elsif status.IR(6 downto 0) = "0000011" and status.IR(14 downto 12) = "010" then
+                elsif status.IR(6 downto 0) = "0000011" then
+                    
+                    cmd.AD_we <= '1';
+                -- AD <- rs1 + immS
+                  cmd.AD_Y_sel <= AD_Y_immI;
+                  state_d <= S_LOAD;
+                elsif status.IR(6 downto 0) = "0100011" then
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
-                    -- lecture de l'adresse mémoire à utiliser
-                    cmd.AD_Y_sel <= AD_Y_immI;
-                    cmd.AD_WE <= '1';
-                    cmd.ADDR_sel <= ADDR_from_ad;
-                    -- permission de lecture mémoire
-                    cmd.mem_we   <= '0';
-                    cmd.mem_ce   <= '1';
-                    -- Etat suivant
-                    state_d <= S_LW;
-                elsif status.IR(6 downto 0) = "0000011" and status.IR(14 downto 12) = "001" then
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                    -- lecture de l'adresse mémoire à utiliser
-                    cmd.AD_Y_sel <= AD_Y_immI;
-                    cmd.AD_WE <= '1';
-                    cmd.ADDR_sel <= ADDR_from_ad;
-                    -- permission de lecture mémoire
-                    cmd.mem_we   <= '0';
-                    cmd.mem_ce   <= '1';
-                    -- Etat suivant
-                    state_d <= S_LH;
-                elsif status.IR(6 downto 0) = "0000011" and status.IR(14 downto 12) = "000" then
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                    -- lecture de l'adresse mémoire à utiliser
-                    cmd.AD_Y_sel <= AD_Y_immI;
-                    cmd.AD_WE <= '1';
-                    cmd.ADDR_sel <= ADDR_from_ad;
-                    -- permission de lecture mémoire
-                    cmd.mem_we   <= '0';
-                    cmd.mem_ce   <= '1';
-                    -- Etat suivant
-                    state_d <= S_LB;
-                elsif status.IR(6 downto 0) = "0000011" and status.IR(14 downto 12) = "101" then
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                    -- lecture de l'adresse mémoire à utiliser
-                    cmd.AD_Y_sel <= AD_Y_immI;
-                    cmd.AD_WE <= '1';
-                    cmd.ADDR_sel <= ADDR_from_ad;
-                    -- permission de lecture mémoire
-                    cmd.mem_we   <= '0';
-                    cmd.mem_ce   <= '1';
-                    -- Etat suivant
-                    state_d <= S_LHU;
-                elsif status.IR(6 downto 0) = "0000011" and status.IR(14 downto 12) = "100" then
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                    -- lecture de l'adresse mémoire à utiliser
-                    cmd.AD_Y_sel <= AD_Y_immI;
-                    cmd.AD_WE <= '1';
-                    cmd.ADDR_sel <= ADDR_from_ad;
-                    -- permission de lecture mémoire
-                    cmd.mem_we   <= '0';
-                    cmd.mem_ce   <= '1';
-                    -- Etat suivant
-                    state_d <= S_LBU;
-                elsif status.IR(6 downto 0) = "0100011" and status.IR(14 downto 12) = "000" then
-                    if status.IR(14 downto 12) = "000" or status.IR(14 downto 12) = "001" or status.IR(14 downto 12) = "010" then
-                        cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                        cmd.PC_sel <= PC_from_pc;
-                        cmd.PC_WE <= '1';
-                        -- lecture de l'adresse mémoire à utiliser
-                        cmd.AD_Y_sel <= AD_Y_immI;
-                        cmd.AD_WE <= '1';
-                        cmd.ADDR_sel <= ADDR_from_ad;
-                        -- permission de lecture mémoire
-                        cmd.mem_we   <= '0';
-                        cmd.mem_ce   <= '1';
-                        -- Etat suivant
-                        state_d <= S_STORE;
-                    end if;
+                    state_d <= S_Pre_STORE;
                 elsif status.IR(6 downto 0) = "1101111" then
                     -- Etat suivant
                     state_d <= S_JAL;
@@ -648,11 +585,29 @@ begin
                 cmd.ADDR_sel <= ADDR_from_pc;
                 --next state
                 state_d <= S_Fetch;
+            when S_LOAD =>
+            -- pc <-- pc + 4
+              cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
+              cmd.PC_sel <= PC_from_pc;
+              cmd.PC_WE <= '1';
+            -- mem[rs1 + immI]
+              cmd.mem_we   <= '0';
+              cmd.mem_ce   <= '1';
+              cmd.ADDR_sel <= ADDR_from_ad;
+            --next state
+              case status.IR(14 downto 12) is
+        		    when "000" => state_d <= S_LB;
+        		    when "001" => state_d <= S_LH;
+        		    when "010" => state_d <= S_LW;
+        		    when "100" => state_d <= S_LBU;
+        		    when "101" => state_d <= S_LHU;
+                when others => state_d <= S_Error;
+      		    end case;
             when S_LW =>
                 cmd.DATA_sel <= DATA_from_mem;
                 cmd.RF_we <= '1';
-                cmd.RF_SIGN_enable <= '1';
-                cmd.RF_SIZE_sel <= RF_SIZE_word;
+        	cmd.RF_SIZE_sel <= RF_SIZE_word;
+        	cmd.RF_SIGN_enable <= '0';
                 --next state
                 state_d <= S_Pre_Fetch;
             when S_LH =>
@@ -663,19 +618,12 @@ begin
                 --next state
                 state_d <= S_Pre_Fetch;
             when S_LB =>
-                cmd.AD_Y_sel <= AD_Y_immI;
-                cmd.Ad_we <= '1';
-                --lecture memoire
-                cmd.ADDR_sel <= ADDR_from_ad;
-                cmd.mem_we <= '0';
-                cmd.mem_ce <= '1';
                 cmd.DATA_sel <= DATA_from_mem;
                 cmd.RF_we <= '1';
                 cmd.RF_SIGN_enable <= '1';
                 cmd.RF_SIZE_sel <= RF_SIZE_byte;
-                cmd.ADDR_sel <= ADDR_from_pc;
                 --next state
-                state_d <= S_Fetch;
+                state_d <= S_Pre_Fetch;
             when S_LHU =>
                 cmd.DATA_sel <= DATA_from_mem;
                 cmd.RF_we <= '1';
@@ -687,27 +635,28 @@ begin
                 cmd.DATA_sel <= DATA_from_mem;
                 cmd.RF_we <= '1';
                 cmd.RF_SIGN_enable <= '0';
-                cmd.RF_SIZE_sel <= RF_SIZE_word;
+                cmd.RF_SIZE_sel <= RF_SIZE_byte;
                 --next state
                 state_d <= S_Pre_Fetch;
+            when S_Pre_STORE => 
+              cmd.AD_we <= '1';
+              -- AD <- rs1 + immS
+              cmd.AD_Y_sel <= AD_Y_immS;
+              state_d <= S_STORE;
             when S_STORE =>
-                -- lecture de l'adresse mémoire à utiliser
-                cmd.AD_Y_sel <= AD_Y_immS;
-                cmd.AD_WE <= '1';
-                cmd.ADDR_sel <= ADDR_from_ad;
-                -- permission de lecture mémoire
+                -- mem[immS + rs1]
                 cmd.mem_we   <= '1';
                 cmd.mem_ce   <= '1';
-                --next state
-                state_d <= S_Pre_Fetch;
+                cmd.ADDR_sel <= ADDR_from_ad;
+        	state_d <= S_Pre_Fetch;
             when S_JAL =>
                 -- rd <-- pc + 4
                 cmd.PC_X_sel <= PC_X_pc;
                 cmd.PC_Y_sel <= PC_Y_cst_x04;
                 cmd.DATA_sel <= DATA_from_pc;
-                -- pc <-- pc + immJ
                 cmd.RF_we <= '1';
-                cmd.PC_WE <= '1';
+                -- pc <-- pc + immJ
+                cmd.PC_we <= '1';
                 cmd.PC_sel <= PC_from_pc;
                 cmd.TO_PC_Y_sel <= TO_PC_Y_immJ;
                 -- next state
@@ -717,16 +666,14 @@ begin
                 cmd.PC_X_sel <= PC_X_pc;
                 cmd.PC_Y_sel <= PC_Y_cst_x04;
                 cmd.DATA_sel <= DATA_from_pc;
+                cmd.RF_we <= '1';
                 -- pc <-- rs1 + immI
                 cmd.PC_we <= '1';
-                cmd.RF_we <= '1';
                 cmd.PC_sel <= PC_from_alu;
                 cmd.ALU_Y_sel <= ALU_Y_immI;
                 cmd.ALU_op <= ALU_plus;
                 -- next state
                 state_d <= S_Pre_Fetch;
-                    
-                    
                 
 
 
