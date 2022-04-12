@@ -11,6 +11,7 @@ bltu        PASSED
 bne         PASSED
 jalr        PASSED
 jal         PASSED
+lb          PASSED
 lui         PASSED
 ori         PASSED
 or          PASSED
