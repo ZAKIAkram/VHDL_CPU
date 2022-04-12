@@ -12,10 +12,16 @@ bne         PASSED
 jalr        PASSED
 jal         PASSED
 lb          PASSED
+lbu         PASSED
+lh          PASSED
+lhu         PASSED
 lui         PASSED
+lw          PASSED
 ori         PASSED
 or          PASSED
 rebouclage  PASSED
+sb          PASSED
+sh          PASSED
 slli        PASSED
 sll         PASSED
 slti        PASSED
@@ -27,5 +33,6 @@ sra         PASSED
 srli        PASSED
 srl         PASSED
 sub         PASSED
+sw          PASSED
 xori        PASSED
 xor         PASSED

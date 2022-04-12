@@ -45,9 +45,9 @@ source /user/0/.base/kohena/home/kohena_zakiak/config/autotest.xsim.tcl
 ## }
 ## set tests [regexp -all -inline -- {\S+} $string_test]
 ## puts $string_test
- addi  add  andi  and  auipc  beq  bge  bgeu  blt  bltu  bne  jalr  jal  lb  lui  ori  or  rebouclage  slli  sll  slti  sltiu  slt  sltu  srai  sra  srli  srl  sub  xori  xor
+ addi  add  andi  and  auipc  beq  bge  bgeu  blt  bltu  bne  jalr  jal  lb  lbu  lh  lhu  lui  lw  ori  or  rebouclage  sb  sh  slli  sll  slti  sltiu  slt  sltu  srai  sra  srli  srl  sub  sw  xori  xor
 ## puts $tests
-addi add andi and auipc beq bge bgeu blt bltu bne jalr jal lb lui ori or rebouclage slli sll slti sltiu slt sltu srai sra srli srl sub xori xor
+addi add andi and auipc beq bge bgeu blt bltu bne jalr jal lb lbu lh lhu lui lw ori or rebouclage sb sh slli sll slti sltiu slt sltu srai sra srli srl sub sw xori xor
 ## foreach test $tests {
 ## 	put "Preparing test: ${test}"
 ## 	file delete test_default.out test_default.irq test_default.setup test_default.mem
@@ -418,7 +418,7 @@ Running test: lb
 INFO: [Simtcl 6-17] Simulation restarted
 Note: @ 00000400 = 1024
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
-Note: memory[1024] = 12C00213
+Note: memory[1024] = 0FF00213
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 Note: memory[1025] = 00000297
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
@@ -429,13 +429,82 @@ Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.
 Note: memory[1028] = FFFFFFFF
 Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
 
-Note: pout expect   : 0x0000002C  get : 0x0000002C
-Time: 190 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Note: pout expect   : 0xFFFFFFFF  get : 0xFFFFFFFF
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
 Note: PASSED 
-Time: 190 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
 Failure: Assertion violation
-Time: 190 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
-$finish called at time : 190 ns : File "/user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+$finish called at time : 200 ns : File "/user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
+Preparing test: lbu
+Running test: lbu
+INFO: [Simtcl 6-17] Simulation restarted
+Note: @ 00000400 = 1024
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1024] = 12C00213
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1025] = 00000297
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1026] = 0042A023
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1027] = 0002CF83
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1028] = FFFFFFFF
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+
+Note: pout expect   : 0x0000002C  get : 0x0000002C
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Note: PASSED 
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Failure: Assertion violation
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+$finish called at time : 200 ns : File "/user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
+Preparing test: lh
+Running test: lh
+INFO: [Simtcl 6-17] Simulation restarted
+Note: @ 00000400 = 1024
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1024] = 0000F237
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1025] = 00000297
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1026] = 00429023
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1027] = 00029F83
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1028] = FFFFFFFF
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+
+Note: pout expect   : 0xFFFFF000  get : 0xFFFFF000
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Note: PASSED 
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Failure: Assertion violation
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+$finish called at time : 200 ns : File "/user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
+Preparing test: lhu
+Running test: lhu
+INFO: [Simtcl 6-17] Simulation restarted
+Note: @ 00000400 = 1024
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1024] = 00F00213
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1025] = 00000297
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1026] = 0042A023
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1027] = 0002DF83
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1028] = FFFFFFFF
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+
+Note: pout expect   : 0x0000000F  get : 0x0000000F
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Note: PASSED 
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Failure: Assertion violation
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+$finish called at time : 200 ns : File "/user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
 Preparing test: lui
 Running test: lui
 INFO: [Simtcl 6-17] Simulation restarted
@@ -463,6 +532,29 @@ Time: 120 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/k
 Failure: Assertion violation
 Time: 120 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
 $finish called at time : 120 ns : File "/user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
+Preparing test: lw
+Running test: lw
+INFO: [Simtcl 6-17] Simulation restarted
+Note: @ 00000400 = 1024
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1024] = 00900113
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1025] = 00000F17
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1026] = 002F2023
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1027] = 000F2F83
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1028] = FFFFFFFF
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+
+Note: pout expect   : 0x00000009  get : 0x00000009
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Note: PASSED 
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Failure: Assertion violation
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+$finish called at time : 200 ns : File "/user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
 Preparing test: ori
 Running test: ori
 INFO: [Simtcl 6-17] Simulation restarted
@@ -541,6 +633,52 @@ Time: 140 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/k
 Failure: Assertion violation
 Time: 140 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
 $finish called at time : 140 ns : File "/user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
+Preparing test: sb
+Running test: sb
+INFO: [Simtcl 6-17] Simulation restarted
+Note: @ 00000400 = 1024
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1024] = 12C00213
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1025] = 00000297
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1026] = 00428023
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1027] = 00028F83
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1028] = FFFFFFFF
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+
+Note: pout expect   : 0x0000002C  get : 0x0000002C
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Note: PASSED 
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Failure: Assertion violation
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+$finish called at time : 200 ns : File "/user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
+Preparing test: sh
+Running test: sh
+INFO: [Simtcl 6-17] Simulation restarted
+Note: @ 00000400 = 1024
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1024] = 0003F237
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1025] = 00000297
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1026] = 00429023
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1027] = 0002DF83
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1028] = FFFFFFFF
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+
+Note: pout expect   : 0x0000F000  get : 0x0000F000
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Note: PASSED 
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Failure: Assertion violation
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+$finish called at time : 200 ns : File "/user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
 Preparing test: slli
 Running test: slli
 INFO: [Simtcl 6-17] Simulation restarted
@@ -859,6 +997,29 @@ Time: 120 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/k
 Failure: Assertion violation
 Time: 120 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
 $finish called at time : 120 ns : File "/user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
+Preparing test: sw
+Running test: sw
+INFO: [Simtcl 6-17] Simulation restarted
+Note: @ 00000400 = 1024
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1024] = 00900213
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1025] = 00000297
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1026] = 0042A023
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1027] = 0002AF83
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+Note: memory[1028] = FFFFFFFF
+Time: 0 ps  Iteration: 1  Process: /tb_autotest/C_RAM/line__149  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/RAM32_reload.vhd
+
+Note: pout expect   : 0x00000009  get : 0x00000009
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Note: PASSED 
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+Failure: Assertion violation
+Time: 200 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
+$finish called at time : 200 ns : File "/user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
 Preparing test: xori
 Running test: xori
 INFO: [Simtcl 6-17] Simulation restarted
@@ -909,4 +1070,4 @@ Failure: Assertion violation
 Time: 210 ns  Iteration: 1  Process: /tb_autotest/tb_pout  File: /user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd
 $finish called at time : 210 ns : File "/user/0/.base/kohena/home/kohena_zakiak/vhd/bench/tb_autotest.vhd" Line 203
 ## exit
-INFO: [Common 17-206] Exiting xsim at Tue Apr 12 08:10:57 2022...
+INFO: [Common 17-206] Exiting xsim at Tue Apr 12 10:11:49 2022...
