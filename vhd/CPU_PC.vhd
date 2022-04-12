@@ -654,7 +654,7 @@ begin
                 elsif status.IR(14 downto 12) = "001" then
                     cmd.RF_SIZE_sel <= RF_SIZE_half;
                 elsif status.IR(14 downto 12) = "010" then
-                    cmd.RF_SIZE_sel <= RF_SIZE_word
+                    cmd.RF_SIZE_sel <= RF_SIZE_word;
                 end if;
         	state_d <= S_Pre_Fetch;
             when S_JAL =>
