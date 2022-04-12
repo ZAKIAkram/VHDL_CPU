@@ -50,8 +50,8 @@ architecture RTL of CPU_PC is
         S_SLTI,
         S_SLTU,
         S_SLTIU,
+        S_Pre_LOAD,
         S_LOAD,
-        S_LOAD_OR_STORE,
         S_LW,
         S_LB,
         S_LBU,
@@ -273,10 +273,7 @@ begin
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
                     cmd.PC_WE <= '1';
-                    -- AD <- rs1 + immS
-                    cmd.AD_we <= '1';
-                    cmd.AD_Y_sel <= AD_Y_immI;
-                    state_d <= S_LOAD;
+                    state_d <= S_Pre_LOAD;
                 elsif status.IR(6 downto 0) = "0100011" then
                     cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
                     cmd.PC_sel <= PC_from_pc;
@@ -588,6 +585,11 @@ begin
                 cmd.ADDR_sel <= ADDR_from_pc;
                 --next state
                 state_d <= S_Fetch;
+            when S_Pre_STORE => 
+              -- AD <- rs1 + immI
+              cmd.AD_we <= '1';
+              cmd.AD_Y_sel <= AD_Y_immI;
+              state_d <= S_LOAD;
             when S_LOAD =>
             -- mem[rs1 + immI]
               cmd.mem_we   <= '0';
