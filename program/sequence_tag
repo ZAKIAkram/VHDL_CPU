@@ -30,3 +30,4 @@ BLTU
 JAL
 JALR
 LB
+SW
