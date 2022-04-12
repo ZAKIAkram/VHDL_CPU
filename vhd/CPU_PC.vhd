@@ -585,7 +585,7 @@ begin
                 cmd.ADDR_sel <= ADDR_from_pc;
                 --next state
                 state_d <= S_Fetch;
-            when S_Pre_STORE => 
+            when S_Pre_LOAD => 
               -- AD <- rs1 + immI
               cmd.AD_we <= '1';
               cmd.AD_Y_sel <= AD_Y_immI;
