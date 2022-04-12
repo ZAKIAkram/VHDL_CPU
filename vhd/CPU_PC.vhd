@@ -269,6 +269,10 @@ begin
                       state_d <= S_Error;
                   end case;
                 elsif status.IR(6 downto 0) = "0000011" then
+                    -- pc <-- pc + 4
+                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
+                    cmd.PC_sel <= PC_from_pc;
+                    cmd.PC_WE <= '1';
                     -- AD <- rs1 + immS
                     cmd.AD_we <= '1';
                     cmd.AD_Y_sel <= AD_Y_immI;
@@ -585,10 +589,6 @@ begin
                 --next state
                 state_d <= S_Fetch;
             when S_LOAD =>
-            -- pc <-- pc + 4
-              cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-              cmd.PC_sel <= PC_from_pc;
-              cmd.PC_WE <= '1';
             -- mem[rs1 + immI]
               cmd.mem_we   <= '0';
               cmd.mem_ce   <= '1';
