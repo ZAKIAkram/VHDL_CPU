@@ -699,7 +699,8 @@ begin
                 cmd.PC_Y_sel <= PC_Y_cst_x04;
                 cmd.DATA_sel <= DATA_from_pc;
                 -- pc <-- pc + immJ
-                cmd.PC_we <= '1';
+                cmd.RF_we <= '1';
+                cmd.PC_WE <= '1';
                 cmd.PC_sel <= PC_from_pc;
                 cmd.TO_PC_Y_sel <= TO_PC_Y_immJ;
                 -- next state
@@ -711,6 +712,7 @@ begin
                 cmd.DATA_sel <= DATA_from_pc;
                 -- pc <-- rs1 + immI
                 cmd.PC_we <= '1';
+                cmd.RF_we <= '1';
                 cmd.PC_sel <= PC_from_alu;
                 cmd.ALU_Y_sel <= ALU_Y_immI;
                 cmd.ALU_op <= ALU_plus;
