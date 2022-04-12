@@ -649,6 +649,7 @@ begin
                 cmd.mem_we   <= '1';
                 cmd.mem_ce   <= '1';
                 cmd.ADDR_sel <= ADDR_from_ad;
+                cmd.RF_SIZE_sel <= RF_SIZE_byte;
         	state_d <= S_Pre_Fetch;
             when S_JAL =>
                 -- rd <-- pc + 4
