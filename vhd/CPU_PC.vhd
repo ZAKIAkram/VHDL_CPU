@@ -742,15 +742,16 @@ begin
                 elsif status.IR(31 downto 20) = x"305" then
                     cmd.cs.CSR_sel <= CSR_from_mtvec;
                     cmd.cs.CSR_we <= CSR_mtvec;
-                if status.IR(31 downto 20) = x"341" then
+                elsif status.IR(31 downto 20) = x"341" then
                     cmd.cs.CSR_sel <= CSR_from_mepc;
                     cmd.cs.CSR_we <= CSR_mepc;
-                if status.IR(31 downto 20) = x"342" then
+                elsif status.IR(31 downto 20) = x"342" then
                     cmd.cs.CSR_sel <= CSR_from_mcause;
                     cmd.cs.CSR_we <= CSR_mcause;
-                if status.IR(31 downto 20) = x"344" then
+                elsif status.IR(31 downto 20) = x"344" then
                     cmd.cs.CSR_sel <= CSR_from_mip;
                     cmd.cs.CSR_we <= CSR_mip;
+                end if;
                 -- next state
                 state_d <= S_Pre_Fetch;
             when S_CSRRC =>
@@ -767,15 +768,16 @@ begin
                 elsif status.IR(31 downto 20) = x"305" then
                     cmd.cs.CSR_sel <= CSR_from_mtvec;
                     cmd.cs.CSR_we <= CSR_mtvec;
-                if status.IR(31 downto 20) = x"341" then
+                elsif status.IR(31 downto 20) = x"341" then
                     cmd.cs.CSR_sel <= CSR_from_mepc;
                     cmd.cs.CSR_we <= CSR_mepc;
-                if status.IR(31 downto 20) = x"342" then
+                elsif status.IR(31 downto 20) = x"342" then
                     cmd.cs.CSR_sel <= CSR_from_mcause;
                     cmd.cs.CSR_we <= CSR_mcause;
-                if status.IR(31 downto 20) = x"344" then
+                elsif status.IR(31 downto 20) = x"344" then
                     cmd.cs.CSR_sel <= CSR_from_mip;
                     cmd.cs.CSR_we <= CSR_mip;
+                end if;
                 -- next state
                 state_d <= S_Pre_Fetch;
             when S_CSRRS =>
@@ -783,7 +785,7 @@ begin
                 cmd.DATA_sel <= DATA_from_csr;
                 cmd.cs.TO_CSR_sel <= TO_CSR_from_rs1;
                 cmd.cs.CSR_WRITE_mode <= WRITE_mode_set;
-               if status.IR(31 downto 20) = x"300" then
+                if status.IR(31 downto 20) = x"300" then
                     cmd.cs.CSR_sel <= CSR_from_mstatus;
                     cmd.cs.CSR_we <= CSR_mstatus;
                 elsif status.IR(31 downto 20) = x"304" then
@@ -792,15 +794,16 @@ begin
                 elsif status.IR(31 downto 20) = x"305" then
                     cmd.cs.CSR_sel <= CSR_from_mtvec;
                     cmd.cs.CSR_we <= CSR_mtvec;
-                if status.IR(31 downto 20) = x"341" then
+                elsif status.IR(31 downto 20) = x"341" then
                     cmd.cs.CSR_sel <= CSR_from_mepc;
                     cmd.cs.CSR_we <= CSR_mepc;
-                if status.IR(31 downto 20) = x"342" then
+                elsif status.IR(31 downto 20) = x"342" then
                     cmd.cs.CSR_sel <= CSR_from_mcause;
                     cmd.cs.CSR_we <= CSR_mcause;
-                if status.IR(31 downto 20) = x"344" then
+                elsif status.IR(31 downto 20) = x"344" then
                     cmd.cs.CSR_sel <= CSR_from_mip;
                     cmd.cs.CSR_we <= CSR_mip;
+                end if;
                 -- next state
                 state_d <= S_Pre_Fetch;
             when S_CSRRS =>
@@ -808,7 +811,7 @@ begin
                 cmd.DATA_sel <= DATA_from_csr;
                 cmd.cs.TO_CSR_sel <= TO_CSR_from_imm;
                 cmd.cs.CSR_WRITE_mode <= WRITE_mode_set;
-               if status.IR(31 downto 20) = x"300" then
+                if status.IR(31 downto 20) = x"300" then
                     cmd.cs.CSR_sel <= CSR_from_mstatus;
                     cmd.cs.CSR_we <= CSR_mstatus;
                 elsif status.IR(31 downto 20) = x"304" then
@@ -817,15 +820,16 @@ begin
                 elsif status.IR(31 downto 20) = x"305" then
                     cmd.cs.CSR_sel <= CSR_from_mtvec;
                     cmd.cs.CSR_we <= CSR_mtvec;
-                if status.IR(31 downto 20) = x"341" then
+                elsif status.IR(31 downto 20) = x"341" then
                     cmd.cs.CSR_sel <= CSR_from_mepc;
                     cmd.cs.CSR_we <= CSR_mepc;
-                if status.IR(31 downto 20) = x"342" then
+                elsif status.IR(31 downto 20) = x"342" then
                     cmd.cs.CSR_sel <= CSR_from_mcause;
                     cmd.cs.CSR_we <= CSR_mcause;
-                if status.IR(31 downto 20) = x"344" then
+                elsif status.IR(31 downto 20) = x"344" then
                     cmd.cs.CSR_sel <= CSR_from_mip;
                     cmd.cs.CSR_we <= CSR_mip;
+                end if;
                 -- next state
                 state_d <= S_Pre_Fetch;
             when S_CSRRW =>
@@ -833,7 +837,7 @@ begin
                 cmd.DATA_sel <= DATA_from_csr;
                 cmd.cs.TO_CSR_sel <= TO_CSR_from_rs1;
                 cmd.cs.CSR_WRITE_mode <= WRITE_mode_simple;
-               if status.IR(31 downto 20) = x"300" then
+                if status.IR(31 downto 20) = x"300" then
                     cmd.cs.CSR_sel <= CSR_from_mstatus;
                     cmd.cs.CSR_we <= CSR_mstatus;
                 elsif status.IR(31 downto 20) = x"304" then
@@ -842,15 +846,16 @@ begin
                 elsif status.IR(31 downto 20) = x"305" then
                     cmd.cs.CSR_sel <= CSR_from_mtvec;
                     cmd.cs.CSR_we <= CSR_mtvec;
-                if status.IR(31 downto 20) = x"341" then
+                elsif status.IR(31 downto 20) = x"341" then
                     cmd.cs.CSR_sel <= CSR_from_mepc;
                     cmd.cs.CSR_we <= CSR_mepc;
-                if status.IR(31 downto 20) = x"342" then
+                elsif status.IR(31 downto 20) = x"342" then
                     cmd.cs.CSR_sel <= CSR_from_mcause;
                     cmd.cs.CSR_we <= CSR_mcause;
-                if status.IR(31 downto 20) = x"344" then
+                elsif status.IR(31 downto 20) = x"344" then
                     cmd.cs.CSR_sel <= CSR_from_mip;
                     cmd.cs.CSR_we <= CSR_mip;
+                end if;
                 -- next state
                 state_d <= S_Pre_Fetch;
             when S_CSRRWI =>
@@ -858,7 +863,7 @@ begin
                 cmd.DATA_sel <= DATA_from_csr;
                 cmd.cs.TO_CSR_sel <= TO_CSR_from_imm;
                 cmd.cs.CSR_WRITE_mode <= WRITE_mode_simple;
-               if status.IR(31 downto 20) = x"300" then
+                if status.IR(31 downto 20) = x"300" then
                     cmd.cs.CSR_sel <= CSR_from_mstatus;
                     cmd.cs.CSR_we <= CSR_mstatus;
                 elsif status.IR(31 downto 20) = x"304" then
@@ -867,15 +872,16 @@ begin
                 elsif status.IR(31 downto 20) = x"305" then
                     cmd.cs.CSR_sel <= CSR_from_mtvec;
                     cmd.cs.CSR_we <= CSR_mtvec;
-                if status.IR(31 downto 20) = x"341" then
+                elsif status.IR(31 downto 20) = x"341" then
                     cmd.cs.CSR_sel <= CSR_from_mepc;
                     cmd.cs.CSR_we <= CSR_mepc;
-                if status.IR(31 downto 20) = x"342" then
+                elsif status.IR(31 downto 20) = x"342" then
                     cmd.cs.CSR_sel <= CSR_from_mcause;
                     cmd.cs.CSR_we <= CSR_mcause;
-                if status.IR(31 downto 20) = x"344" then
+                elsif status.IR(31 downto 20) = x"344" then
                     cmd.cs.CSR_sel <= CSR_from_mip;
                     cmd.cs.CSR_we <= CSR_mip;
+                end if;
                 -- next state
                 state_d <= S_Pre_Fetch;
             when S_MRET =>
