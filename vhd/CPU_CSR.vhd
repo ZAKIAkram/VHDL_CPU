@@ -69,7 +69,7 @@ begin
                 mie_q <= w32_zero;
             else
                 mtvec_q <= mtvec_d;
-                mcause_q = mcause_d;
+                mcause_q <= mcause_d;
                 mip_q <= mip_d;    
                 mstatus_q <= mstatus_d;
                 mepc_q <= mepc_d;
@@ -80,7 +80,7 @@ begin
     mtvec <= mtvec_q;
     mip <= mip_q;
     mie <= mie_q;
-    msatus <= mstatus_q;
+    mstatus <= mstatus_q;
     mepc <= mepc_q;
     TO_CSR <= rs1 when cmd.TO_CSR_Sel = TO_CSR_From_rs1 else imm;
     process(all)
@@ -104,9 +104,9 @@ begin
         end if;
         -- les write enable
         if (cmd.CSR_we = CSR_mtvec) then
-            mtvec_d <= CSR_write(TO_CSR, mtvec_q, CSR_WRITE_mode); 
+            mtvec_d <= CSR_write(TO_CSR, mtvec_q, cmd.CSR_WRITE_mode); 
         elsif (cmd.CSR_we = CSR_mie) then
-            mepc_d <= CSR_write(TO_CSR,mei_q, cmd.CSR_WRITE_mode);
+            mepc_d <= CSR_write(TO_CSR,mie_q, cmd.CSR_WRITE_mode);
         elsif (cmd.CSR_we = CSR_mstatus) then
             mstatus_d <= CSR_write(TO_CSR, mstatus_q, cmd.CSR_WRITE_mode);
         end if;
