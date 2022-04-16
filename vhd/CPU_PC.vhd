@@ -733,7 +733,7 @@ begin
                 cmd.DATA_sel <= DATA_from_csr;
                 cmd.cs.TO_CSR_sel <= TO_CSR_from_rs1;
                 cmd.cs.CSR_WRITE_mode <= WRITE_mode_clear;
-               if status.IR(31 downto 20) = x"300" then
+                if status.IR(31 downto 20) = x"300" then
                     cmd.cs.CSR_sel <= CSR_from_mstatus;
                     cmd.cs.CSR_we <= CSR_mstatus;
                 elsif status.IR(31 downto 20) = x"304" then
@@ -745,12 +745,11 @@ begin
                 elsif status.IR(31 downto 20) = x"341" then
                     cmd.cs.CSR_sel <= CSR_from_mepc;
                     cmd.cs.CSR_we <= CSR_mepc;
+                    cmd.cs.MEPC_sel <= MEPC_from_csr; 
                 elsif status.IR(31 downto 20) = x"342" then
                     cmd.cs.CSR_sel <= CSR_from_mcause;
-                    cmd.cs.CSR_we <= CSR_mcause;
                 elsif status.IR(31 downto 20) = x"344" then
                     cmd.cs.CSR_sel <= CSR_from_mip;
-                    cmd.cs.CSR_we <= CSR_mip;
                 end if;
                 -- next state
                 state_d <= S_Pre_Fetch;
@@ -771,12 +770,11 @@ begin
                 elsif status.IR(31 downto 20) = x"341" then
                     cmd.cs.CSR_sel <= CSR_from_mepc;
                     cmd.cs.CSR_we <= CSR_mepc;
+                    cmd.cs.MEPC_sel <= MEPC_from_csr; 
                 elsif status.IR(31 downto 20) = x"342" then
                     cmd.cs.CSR_sel <= CSR_from_mcause;
-                    cmd.cs.CSR_we <= CSR_mcause;
                 elsif status.IR(31 downto 20) = x"344" then
                     cmd.cs.CSR_sel <= CSR_from_mip;
-                    cmd.cs.CSR_we <= CSR_mip;
                 end if;
                 -- next state
                 state_d <= S_Pre_Fetch;
@@ -797,12 +795,11 @@ begin
                 elsif status.IR(31 downto 20) = x"341" then
                     cmd.cs.CSR_sel <= CSR_from_mepc;
                     cmd.cs.CSR_we <= CSR_mepc;
+                    cmd.cs.MEPC_sel <= MEPC_from_csr; 
                 elsif status.IR(31 downto 20) = x"342" then
                     cmd.cs.CSR_sel <= CSR_from_mcause;
-                    cmd.cs.CSR_we <= CSR_mcause;
                 elsif status.IR(31 downto 20) = x"344" then
                     cmd.cs.CSR_sel <= CSR_from_mip;
-                    cmd.cs.CSR_we <= CSR_mip;
                 end if;
                 -- next state
                 state_d <= S_Pre_Fetch;
@@ -823,12 +820,11 @@ begin
                 elsif status.IR(31 downto 20) = x"341" then
                     cmd.cs.CSR_sel <= CSR_from_mepc;
                     cmd.cs.CSR_we <= CSR_mepc;
+                    cmd.cs.MEPC_sel <= MEPC_from_csr; 
                 elsif status.IR(31 downto 20) = x"342" then
                     cmd.cs.CSR_sel <= CSR_from_mcause;
-                    cmd.cs.CSR_we <= CSR_mcause;
                 elsif status.IR(31 downto 20) = x"344" then
                     cmd.cs.CSR_sel <= CSR_from_mip;
-                    cmd.cs.CSR_we <= CSR_mip;
                 end if;
                 -- next state
                 state_d <= S_Pre_Fetch;
@@ -849,12 +845,11 @@ begin
                 elsif status.IR(31 downto 20) = x"341" then
                     cmd.cs.CSR_sel <= CSR_from_mepc;
                     cmd.cs.CSR_we <= CSR_mepc;
+                    cmd.cs.MEPC_sel <= MEPC_from_csr; 
                 elsif status.IR(31 downto 20) = x"342" then
                     cmd.cs.CSR_sel <= CSR_from_mcause;
-                    cmd.cs.CSR_we <= CSR_mcause;
                 elsif status.IR(31 downto 20) = x"344" then
                     cmd.cs.CSR_sel <= CSR_from_mip;
-                    cmd.cs.CSR_we <= CSR_mip;
                 end if;
                 -- next state
                 state_d <= S_Pre_Fetch;
