@@ -882,7 +882,7 @@ begin
                 cmd.PC_sel <= PC_from_mepc;
                 cmd.PC_we <= '1';
                 cmd.cs.MSTATUS_mie_set <= '1';
-                --next state
+                --next state 
                 state_d <= S_Pre_Fetch;
                     
             
