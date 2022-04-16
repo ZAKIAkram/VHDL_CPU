@@ -53,8 +53,8 @@ architecture RTL of CPU_CSR is
         return res;
     end CSR_write;
 
-    signal TO_CSR, mcause_q, mcause_d, mip_q, mip_d, mstatus_q, mstatus_d, mtvec_q, mtvec_d, mepc_q, mepc_d : w32
-    signal mie_q, mie_d : w32
+    signal TO_CSR, mcause_q, mcause_d, mip_q, mip_d, mstatus_q, mstatus_d, mtvec_q, mtvec_d, mepc_q, mepc_d : w32;
+    signal mie_q, mie_d : w32;
 
 begin
     process(clk)
@@ -106,14 +106,14 @@ begin
         if (cmd.CSR_we = CSR_mtvec) then
             mtvec_d <= CSR_write(TO_CSR, mtvec_q, CSR_WRITE_mode); 
         elsif (cmd.CSR_we = CSR_mie) then
-            mepc_d <= CSR_write(TO_CSR,mei_q, cmd.CSR_WRITE_mode);
+            mepc_d <= CSR_write(TO_CSR,mei_q, CSR_WRITE_mode);
         elsif (cmd.CSR_we = CSR_mstatus) then
-            mstatus_d <= CSR_write(TO_CSR, mstatus_q, cmd.CSR_WRITE_mode);
+            mstatus_d <= CSR_write(TO_CSR, mstatus_q, CSR_WRITE_mode);
         end if;
-        if (cmd.CSR_we = CSR_mepc) and (cmd.MEPC_sel = MEPC_from_pc ) then
-            mepc_d <= CSR_write(pc, mepc_d,cmd.CSR_WRITE_mode );
+        if (cmd.CSR_we = CSR_mepc) and (cmd.MEPC_sel = MEPC_from_pc) then
+            mepc_d <= CSR_write(pc, mepc_d,CSR_WRITE_mode);
         elsif (cmd.CSR_we = CSR_mepc) and (cmd.MEPC_sel = MEPC_from_csr ) then
-            mepc_d <= CSR_write(TO_CSR, mepc_d,cmd.CSR_WRITE_mode );
+            mepc_d <= CSR_write(TO_CSR, mepc_d,CSR_WRITE_mode);
         end if ;
         -- pas de write enable pour mip
         mip_d(7) <= mtip;
