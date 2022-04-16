@@ -106,14 +106,14 @@ begin
         if (cmd.CSR_we = CSR_mtvec) then
             mtvec_d <= CSR_write(TO_CSR, mtvec_q, CSR_WRITE_mode); 
         elsif (cmd.CSR_we = CSR_mie) then
-            mepc_d <= CSR_write(TO_CSR,mei_q, CSR_WRITE_mode);
+            mepc_d <= CSR_write(TO_CSR,mei_q, cmd.CSR_WRITE_mode);
         elsif (cmd.CSR_we = CSR_mstatus) then
-            mstatus_d <= CSR_write(TO_CSR, mstatus_q, CSR_WRITE_mode);
+            mstatus_d <= CSR_write(TO_CSR, mstatus_q, cmd.CSR_WRITE_mode);
         end if;
-        if (cmd.CSR_we = CSR_mepc) and (cmd.MEPC_sel = MEPC_from_pc) then
-            mepc_d <= CSR_write(pc, mepc_d,CSR_WRITE_mode);
+        if (cmd.CSR_we = CSR_mepc) and (cmd.MEPC_sel = MEPC_from_pc ) then
+            mepc_d <= CSR_write(pc, mepc_d,cmd.CSR_WRITE_mode );
         elsif (cmd.CSR_we = CSR_mepc) and (cmd.MEPC_sel = MEPC_from_csr ) then
-            mepc_d <= CSR_write(TO_CSR, mepc_d,CSR_WRITE_mode);
+            mepc_d <= CSR_write(TO_CSR, mepc_d,cmd.CSR_WRITE_mode );
         end if ;
         -- pas de write enable pour mip
         mip_d(7) <= mtip;
@@ -126,11 +126,11 @@ begin
         elsif ( cmd.CSR_sel = CSR_from_mie) then
             CSR <= mie_q;
         elsif ( cmd.CSR_sel = CSR_from_mstatus) then
-            CSR <= mstatus;
+            CSR <= mstatus_q;
         elsif ( cmd.CSR_sel = CSR_from_mtvec) then
-            CSR <= mtvec;
+            CSR <= mtvec_q;
         elsif ( cmd.CSR_sel = CSR_from_mepc) then
-            CSR <= mepc;
+            CSR <= mepc_q;
         end if;
         -- les autres sorties
         mtvec <= mtvec_q;
