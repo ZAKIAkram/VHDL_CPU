@@ -80,7 +80,6 @@ begin
     mtvec <= mtvec_q;
     mip <= mip_q;
     mie <= mie_q;
-    mstatus <= mstatus_q;
     mepc <= mepc_q;
     TO_CSR <= rs1 when cmd.TO_CSR_Sel = TO_CSR_From_rs1 else imm;
     process(all)
