@@ -310,9 +310,9 @@ begin
                     elsif status.IR(14 downto 12) = "110" then
                         state_d <= S_CSRRSI;
                     elsif status.IR(14 downto 12) = "001" then
-                        stats_d <= S_CSRRW;
+                        state_d <= S_CSRRW;
                     elsif status.IR(14 downto 12) = "101" then
-                        stats_d <= S_CSRRWI;
+                        state_d <= S_CSRRWI;
                     elsif status.IR(14 downto 12) = "000" then
                         state_d <= S_MRET;
                     else
@@ -723,9 +723,9 @@ begin
                 cmd.PC_we <= '1';
                 cmd.cs.CSR_we <= CSR_mepc;
                 cmd.cs.CSR_WRITE_mode <= WRITE_mode_simple;
-                cdm.cs.MEPC_sel <= MEPC_from_pc;
+                cmd.cs.MEPC_sel <= MEPC_from_pc;
                 cmd.cs.CSR_we <= CSR_mepc;
-                cdm.cs.MSTATUS_mie_reset <= '1';
+                cmd.cs.MSTATUS_mie_reset <= '1';
                 -- next state
                 state_d <= S_Pre_Fetch;
             when S_CSRRC =>
@@ -875,12 +875,11 @@ begin
                 elsif status.IR(31 downto 20) = x"341" then
                     cmd.cs.CSR_sel <= CSR_from_mepc;
                     cmd.cs.CSR_we <= CSR_mepc;
+                    cmd.cs.MEPC_sel <= MEPC_from_csr; 
                 elsif status.IR(31 downto 20) = x"342" then
                     cmd.cs.CSR_sel <= CSR_from_mcause;
-                    cmd.cs.CSR_we <= CSR_mcause;
                 elsif status.IR(31 downto 20) = x"344" then
                     cmd.cs.CSR_sel <= CSR_from_mip;
-                    cmd.cs.CSR_we <= CSR_mip;
                 end if;
                 -- next state
                 state_d <= S_Pre_Fetch;
