@@ -63,16 +63,8 @@ architecture RTL of CPU_PC is
         S_SB,
         S_SH,
         S_JAL,
-        S_JALR,
-        S_INTERRUPTION, 
-        S_CSRRC,
-        S_CSRRCI,
-        S_CSRRS,
-        S_CSRRSI,
-        S_CSRRW,
-        S_CSRRWI,
-        S_MRET
-        );
+        S_JALR
+            );
 
     signal state_d, state_q : State_type;
 
@@ -158,11 +150,7 @@ begin
             when S_Fetch =>
                 -- IR <- mem_datain
                 cmd.IR_we <= '1';
-                if status.IT then
-                    state_d <= S_INTERRUPTION;
-                else
-                    state_d <= S_Decode;
-                end if;
+                state_d <= S_Decode;
 
             when S_Decode =>
 
@@ -297,29 +285,6 @@ begin
                 elsif status.IR(6 downto 0) = "1100111" and status.IR(14 downto 12) = "000" then
                     -- Etat suivant
                     state_d <= S_JALR;
-                elsif status.IR(6 downto 0) = "1110011"  then
-                    cmd.TO_PC_Y_sel <= TO_PC_Y_cst_x04;
-                    cmd.PC_sel <= PC_from_pc;
-                    cmd.PC_WE <= '1';
-                    if status.IR(14 downto 12) = "011" then
-                        state_d <= S_CSRRC;
-                    elsif status.IR(14 downto 12) = "111" then
-                        state_d <= S_CSRRCI;
-                    elsif status.IR(14 downto 12) = "010" then
-                        state_d <= S_CSRRS;
-                    elsif status.IR(14 downto 12) = "110" then
-                        state_d <= S_CSRRSI;
-                    elsif status.IR(14 downto 12) = "001" then
-                        state_d <= S_CSRRW;
-                    elsif status.IR(14 downto 12) = "101" then
-                        state_d <= S_CSRRWI;
-                    elsif status.IR(14 downto 12) = "000" then
-                        state_d <= S_MRET;
-                    else
-                        state_d <= S_Error;
-                    end if;
-                else
-                    state_d <=  S_Error;
                 end if;
             when S_LUI =>
                     --rd <- ImmU + 0
@@ -717,175 +682,6 @@ begin
                 cmd.ALU_op <= ALU_plus;
                 -- next state
                 state_d <= S_Pre_Fetch;
-
-            when S_INTERRUPTION => 
-                cmd.PC_sel <= PC_mtvec;
-                cmd.PC_we <= '1';
-                cmd.cs.CSR_we <= CSR_mepc;
-                cmd.cs.CSR_WRITE_mode <= WRITE_mode_simple;
-                cmd.cs.MEPC_sel <= MEPC_from_pc;
-                cmd.cs.CSR_we <= CSR_mepc;
-                cmd.cs.MSTATUS_mie_reset <= '1';
-                -- next state
-                state_d <= S_Pre_Fetch;
-            when S_CSRRC =>
-                cmd.RF_we <= '1';
-                cmd.DATA_sel <= DATA_from_csr;
-                cmd.cs.TO_CSR_sel <= TO_CSR_from_rs1;
-                cmd.cs.CSR_WRITE_mode <= WRITE_mode_clear;
-                if status.IR(31 downto 20) = x"300" then
-                    cmd.cs.CSR_sel <= CSR_from_mstatus;
-                    cmd.cs.CSR_we <= CSR_mstatus;
-                elsif status.IR(31 downto 20) = x"304" then
-                    cmd.cs.CSR_sel <= CSR_from_mie;
-                    cmd.cs.CSR_we <= CSR_mie;
-                elsif status.IR(31 downto 20) = x"305" then
-                    cmd.cs.CSR_sel <= CSR_from_mtvec;
-                    cmd.cs.CSR_we <= CSR_mtvec;
-                elsif status.IR(31 downto 20) = x"341" then
-                    cmd.cs.CSR_sel <= CSR_from_mepc;
-                    cmd.cs.CSR_we <= CSR_mepc;
-                    cmd.cs.MEPC_sel <= MEPC_from_csr; 
-                elsif status.IR(31 downto 20) = x"342" then
-                    cmd.cs.CSR_sel <= CSR_from_mcause;
-                elsif status.IR(31 downto 20) = x"344" then
-                    cmd.cs.CSR_sel <= CSR_from_mip;
-                end if;
-                -- next state
-                state_d <= S_Pre_Fetch;
-            when S_CSRRC =>
-                cmd.RF_we <= '1';
-                cmd.DATA_sel <= DATA_from_csr;
-                cmd.cs.TO_CSR_sel <= TO_CSR_from_imm;
-                cmd.cs.CSR_WRITE_mode <= WRITE_mode_clear;
-                if status.IR(31 downto 20) = x"300" then
-                    cmd.cs.CSR_sel <= CSR_from_mstatus;
-                    cmd.cs.CSR_we <= CSR_mstatus;
-                elsif status.IR(31 downto 20) = x"304" then
-                    cmd.cs.CSR_sel <= CSR_from_mie;
-                    cmd.cs.CSR_we <= CSR_mie;
-                elsif status.IR(31 downto 20) = x"305" then
-                    cmd.cs.CSR_sel <= CSR_from_mtvec;
-                    cmd.cs.CSR_we <= CSR_mtvec;
-                elsif status.IR(31 downto 20) = x"341" then
-                    cmd.cs.CSR_sel <= CSR_from_mepc;
-                    cmd.cs.CSR_we <= CSR_mepc;
-                    cmd.cs.MEPC_sel <= MEPC_from_csr; 
-                elsif status.IR(31 downto 20) = x"342" then
-                    cmd.cs.CSR_sel <= CSR_from_mcause;
-                elsif status.IR(31 downto 20) = x"344" then
-                    cmd.cs.CSR_sel <= CSR_from_mip;
-                end if;
-                -- next state
-                state_d <= S_Pre_Fetch;
-            when S_CSRRS =>
-                cmd.RF_we <= '1';
-                cmd.DATA_sel <= DATA_from_csr;
-                cmd.cs.TO_CSR_sel <= TO_CSR_from_rs1;
-                cmd.cs.CSR_WRITE_mode <= WRITE_mode_set;
-                if status.IR(31 downto 20) = x"300" then
-                    cmd.cs.CSR_sel <= CSR_from_mstatus;
-                    cmd.cs.CSR_we <= CSR_mstatus;
-                elsif status.IR(31 downto 20) = x"304" then
-                    cmd.cs.CSR_sel <= CSR_from_mie;
-                    cmd.cs.CSR_we <= CSR_mie;
-                elsif status.IR(31 downto 20) = x"305" then
-                    cmd.cs.CSR_sel <= CSR_from_mtvec;
-                    cmd.cs.CSR_we <= CSR_mtvec;
-                elsif status.IR(31 downto 20) = x"341" then
-                    cmd.cs.CSR_sel <= CSR_from_mepc;
-                    cmd.cs.CSR_we <= CSR_mepc;
-                    cmd.cs.MEPC_sel <= MEPC_from_csr; 
-                elsif status.IR(31 downto 20) = x"342" then
-                    cmd.cs.CSR_sel <= CSR_from_mcause;
-                elsif status.IR(31 downto 20) = x"344" then
-                    cmd.cs.CSR_sel <= CSR_from_mip;
-                end if;
-                -- next state
-                state_d <= S_Pre_Fetch;
-            when S_CSRRS =>
-                cmd.RF_we <= '1';
-                cmd.DATA_sel <= DATA_from_csr;
-                cmd.cs.TO_CSR_sel <= TO_CSR_from_imm;
-                cmd.cs.CSR_WRITE_mode <= WRITE_mode_set;
-                if status.IR(31 downto 20) = x"300" then
-                    cmd.cs.CSR_sel <= CSR_from_mstatus;
-                    cmd.cs.CSR_we <= CSR_mstatus;
-                elsif status.IR(31 downto 20) = x"304" then
-                    cmd.cs.CSR_sel <= CSR_from_mie;
-                    cmd.cs.CSR_we <= CSR_mie;
-                elsif status.IR(31 downto 20) = x"305" then
-                    cmd.cs.CSR_sel <= CSR_from_mtvec;
-                    cmd.cs.CSR_we <= CSR_mtvec;
-                elsif status.IR(31 downto 20) = x"341" then
-                    cmd.cs.CSR_sel <= CSR_from_mepc;
-                    cmd.cs.CSR_we <= CSR_mepc;
-                    cmd.cs.MEPC_sel <= MEPC_from_csr; 
-                elsif status.IR(31 downto 20) = x"342" then
-                    cmd.cs.CSR_sel <= CSR_from_mcause;
-                elsif status.IR(31 downto 20) = x"344" then
-                    cmd.cs.CSR_sel <= CSR_from_mip;
-                end if;
-                -- next state
-                state_d <= S_Pre_Fetch;
-            when S_CSRRW =>
-                cmd.RF_we <= '1';
-                cmd.DATA_sel <= DATA_from_csr;
-                cmd.cs.TO_CSR_sel <= TO_CSR_from_rs1;
-                cmd.cs.CSR_WRITE_mode <= WRITE_mode_simple;
-                if status.IR(31 downto 20) = x"300" then
-                    cmd.cs.CSR_sel <= CSR_from_mstatus;
-                    cmd.cs.CSR_we <= CSR_mstatus;
-                elsif status.IR(31 downto 20) = x"304" then
-                    cmd.cs.CSR_sel <= CSR_from_mie;
-                    cmd.cs.CSR_we <= CSR_mie;
-                elsif status.IR(31 downto 20) = x"305" then
-                    cmd.cs.CSR_sel <= CSR_from_mtvec;
-                    cmd.cs.CSR_we <= CSR_mtvec;
-                elsif status.IR(31 downto 20) = x"341" then
-                    cmd.cs.CSR_sel <= CSR_from_mepc;
-                    cmd.cs.CSR_we <= CSR_mepc;
-                    cmd.cs.MEPC_sel <= MEPC_from_csr; 
-                elsif status.IR(31 downto 20) = x"342" then
-                    cmd.cs.CSR_sel <= CSR_from_mcause;
-                elsif status.IR(31 downto 20) = x"344" then
-                    cmd.cs.CSR_sel <= CSR_from_mip;
-                end if;
-                -- next state
-                state_d <= S_Pre_Fetch;
-            when S_CSRRWI =>
-                cmd.RF_we <= '1';
-                cmd.DATA_sel <= DATA_from_csr;
-                cmd.cs.TO_CSR_sel <= TO_CSR_from_imm;
-                cmd.cs.CSR_WRITE_mode <= WRITE_mode_simple;
-                if status.IR(31 downto 20) = x"300" then
-                    cmd.cs.CSR_sel <= CSR_from_mstatus;
-                    cmd.cs.CSR_we <= CSR_mstatus;
-                elsif status.IR(31 downto 20) = x"304" then
-                    cmd.cs.CSR_sel <= CSR_from_mie;
-                    cmd.cs.CSR_we <= CSR_mie;
-                elsif status.IR(31 downto 20) = x"305" then
-                    cmd.cs.CSR_sel <= CSR_from_mtvec;
-                    cmd.cs.CSR_we <= CSR_mtvec;
-                elsif status.IR(31 downto 20) = x"341" then
-                    cmd.cs.CSR_sel <= CSR_from_mepc;
-                    cmd.cs.CSR_we <= CSR_mepc;
-                    cmd.cs.MEPC_sel <= MEPC_from_csr; 
-                elsif status.IR(31 downto 20) = x"342" then
-                    cmd.cs.CSR_sel <= CSR_from_mcause;
-                elsif status.IR(31 downto 20) = x"344" then
-                    cmd.cs.CSR_sel <= CSR_from_mip;
-                end if;
-                -- next state
-                state_d <= S_Pre_Fetch;
-            when S_MRET =>
-                cmd.PC_sel <= PC_from_mepc;
-                cmd.PC_we <= '1';
-                cmd.cs.MSTATUS_mie_set <= '1';
-                --next state
-                state_d <= S_Pre_Fetch;
-                    
-            
                 
 
 
@@ -896,7 +692,6 @@ begin
 ---------- Instructions de sauvegarde en mémoire ----------
 
 ---------- Instructions d'accès aux CSR ----------
-
 
             when others => null;
         end case;
