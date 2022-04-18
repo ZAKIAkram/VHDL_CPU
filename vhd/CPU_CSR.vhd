@@ -78,9 +78,10 @@ begin
         end if;
     end process;
     mtvec <= mtvec_q;
+    mepc <= mepc_q;
+    it <= mstatus_q(3) and irq;
     mip <= mip_q;
     mie <= mie_q;
-    mepc <= mepc_q;
     TO_CSR <= rs1 when cmd.TO_CSR_Sel = TO_CSR_From_rs1 else imm;
     process(all)
     begin
@@ -103,9 +104,11 @@ begin
         end if;
         -- les write enable
         if (cmd.CSR_we = CSR_mtvec) then
-            mtvec_d <= CSR_write(TO_CSR, mtvec_q, cmd.CSR_WRITE_mode); 
+            mtvec_d <= CSR_write(TO_CSR, mtvec_q, cmd.CSR_WRITE_mode);
+            mtvec_d(0) <= '0';
+            mtvec_d(1) <= '1'; 
         elsif (cmd.CSR_we = CSR_mie) then
-            mepc_d <= CSR_write(TO_CSR,mie_q, cmd.CSR_WRITE_mode);
+            mie_d <= CSR_write(TO_CSR,mie_q, cmd.CSR_WRITE_mode);
         elsif (cmd.CSR_we = CSR_mstatus) then
             mstatus_d <= CSR_write(TO_CSR, mstatus_q, cmd.CSR_WRITE_mode);
         end if;
@@ -131,12 +134,6 @@ begin
         elsif ( cmd.CSR_sel = CSR_from_mepc) then
             CSR <= mepc_q;
         end if;
-        -- les autres sorties
-        mtvec <= mtvec_q;
-        mepc <= mepc_q;
-        it <= mstatus_q(3) and irq;
-        mip <= mip_q;
-        mie <= mie_q;
     end process;
 
 end architecture;
