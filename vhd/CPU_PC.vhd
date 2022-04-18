@@ -752,7 +752,7 @@ begin
                 end if;
                 -- next state
                 state_d <= S_Pre_Fetch;
-            when S_CSRRC =>
+            when S_CSRRCI =>
                 cmd.RF_we <= '1';
                 cmd.DATA_sel <= DATA_from_csr;
                 cmd.cs.TO_CSR_sel <= TO_CSR_from_imm;
@@ -802,7 +802,7 @@ begin
                 end if;
                 -- next state
                 state_d <= S_Pre_Fetch;
-            when S_CSRRS =>
+            when S_CSRRSI =>
                 cmd.RF_we <= '1';
                 cmd.DATA_sel <= DATA_from_csr;
                 cmd.cs.TO_CSR_sel <= TO_CSR_from_imm;
