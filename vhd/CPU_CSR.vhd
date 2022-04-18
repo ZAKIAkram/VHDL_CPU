@@ -80,23 +80,16 @@ begin
     TO_CSR <= rs1 when cmd.TO_CSR_Sel = TO_CSR_From_rs1 else imm;
     process(all)
     begin
+        mcause_d <= mcause_q;
         if irq = '1' then
             mcause_d <= mcause;
         end if;
         mtvec_d <= mtvec_q;
-        mcause_d <= mcause_q;
         mip_d <= mip_q;
         mie_d <= mie_q;
         mstatus_d <= mstatus_q;
         mepc_d <= mepc_q;
-        if cmd.MSTATUS_mie_set = '1' then
-            --Valide l’écriture de la valeur 1 dans le bit 3 du registre mstatus (même sans avoir CSR_we = CSR_mstatus)
-            mstatus_d(3) <= '1';
-        end if;
-        if cmd.MSTATUS_mie_reset = '1' then
-            -- Valide l’écriture de la valeur 0 dans le bit 3 du registre mstatus (même sans avoir CSR_we = CSR_mstatus)
-            mstatus_d(3) <= '0';
-        end if;
+
         -- les write enable
         if cmd.CSR_we = CSR_mtvec then
             mtvec_d <= CSR_write(TO_CSR, mtvec_q, cmd.CSR_WRITE_mode);
@@ -109,6 +102,14 @@ begin
             mepc_d <= CSR_write(pc, mepc_q,cmd.CSR_WRITE_mode );
         elsif cmd.CSR_we = CSR_mepc and cmd.MEPC_sel = MEPC_from_csr then
             mepc_d <= CSR_write(TO_CSR, mepc_q,cmd.CSR_WRITE_mode );
+        end if;
+        if cmd.MSTATUS_mie_set = '1' then
+            --Valide l’écriture de la valeur 1 dans le bit 3 du registre mstatus (même sans avoir CSR_we = CSR_mstatus)
+            mstatus_d(3) <= '1';
+        end if;
+        if cmd.MSTATUS_mie_reset = '1' then
+            -- Valide l’écriture de la valeur 0 dans le bit 3 du registre mstatus (même sans avoir CSR_we = CSR_mstatus)
+            mstatus_d(3) <= '0';
         end if;
         -- pas de write enable pour mip
         mip_d(7) <= mtip;
