@@ -80,7 +80,7 @@ begin
     TO_CSR <= rs1 when cmd.TO_CSR_Sel = TO_CSR_From_rs1 else imm;
     process(all)
     begin
-        if (irq = '1') then
+        if irq = '1' then
             mcause_d <= mcause;
         end if;
         mtvec_d <= mtvec_q;
@@ -89,42 +89,42 @@ begin
         mie_d <= mie_q;
         mstatus_d <= mstatus_q;
         mepc_d <= mepc_q;
-        if (cmd.MSTATUS_mie_set = '1') then
+        if cmd.MSTATUS_mie_set = '1' then
             --Valide l’écriture de la valeur 1 dans le bit 3 du registre mstatus (même sans avoir CSR_we = CSR_mstatus)
-             mstatus_d(3) <= '1';
+            mstatus_d(3) <= '1';
         end if;
-        if (cmd.MSTATUS_mie_reset = '1') then
+        if cmd.MSTATUS_mie_reset = '1' then
             -- Valide l’écriture de la valeur 0 dans le bit 3 du registre mstatus (même sans avoir CSR_we = CSR_mstatus)
             mstatus_d(3) <= '0';
         end if;
         -- les write enable
-        if (cmd.CSR_we = CSR_mtvec) then
+        if cmd.CSR_we = CSR_mtvec then
             mtvec_d <= CSR_write(TO_CSR, mtvec_q, cmd.CSR_WRITE_mode);
-        elsif (cmd.CSR_we = CSR_mie) then
+        elsif cmd.CSR_we = CSR_mie then
             mie_d <= CSR_write(TO_CSR,mie_q, cmd.CSR_WRITE_mode);
-        elsif (cmd.CSR_we = CSR_mstatus) then
+        elsif cmd.CSR_we = CSR_mstatus then
             mstatus_d <= CSR_write(TO_CSR, mstatus_q, cmd.CSR_WRITE_mode);
         end if;
-        if (cmd.CSR_we = CSR_mepc) and (cmd.MEPC_sel = MEPC_from_pc ) then
-            mepc_d <= CSR_write(pc, mepc_d,cmd.CSR_WRITE_mode );
-        elsif (cmd.CSR_we = CSR_mepc) and (cmd.MEPC_sel = MEPC_from_csr ) then
-            mepc_d <= CSR_write(TO_CSR, mepc_d,cmd.CSR_WRITE_mode );
-        end if ;
+        if cmd.CSR_we = CSR_mepc and cmd.MEPC_sel = MEPC_from_pc then
+            mepc_d <= CSR_write(pc, mepc_q,cmd.CSR_WRITE_mode );
+        elsif cmd.CSR_we = CSR_mepc and cmd.MEPC_sel = MEPC_from_csr then
+            mepc_d <= CSR_write(TO_CSR, mepc_q,cmd.CSR_WRITE_mode );
+        end if;
         -- pas de write enable pour mip
         mip_d(7) <= mtip;
         mip_d(11) <= meip;
         --sortie CSR
-        if (cmd.CSR_sel = CSR_from_mcause ) then
+        if cmd.CSR_sel = CSR_from_mcause then
             CSR <= mcause_q;
-        elsif ( cmd.CSR_sel = CSR_from_mip) then
+        elsif cmd.CSR_sel = CSR_from_mip then
             CSR <= mip_q;
-        elsif ( cmd.CSR_sel = CSR_from_mie) then
+        elsif cmd.CSR_sel = CSR_from_mie then
             CSR <= mie_q;
-        elsif ( cmd.CSR_sel = CSR_from_mstatus) then
+        elsif cmd.CSR_sel = CSR_from_mstatus then
             CSR <= mstatus_q;
-        elsif ( cmd.CSR_sel = CSR_from_mtvec) then
+        elsif cmd.CSR_sel = CSR_from_mtvec then
             CSR <= mtvec_q;
-        elsif ( cmd.CSR_sel = CSR_from_mepc) then
+        elsif cmd.CSR_sel = CSR_from_mepc then
             CSR <= mepc_q;
         end if;
     end process;
