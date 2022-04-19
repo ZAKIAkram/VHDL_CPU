@@ -26,3 +26,7 @@ traitant:
     #000005AD
     #000005AD
     #pout_end
+
+    #irq_start
+    #100
+    #irq_end
