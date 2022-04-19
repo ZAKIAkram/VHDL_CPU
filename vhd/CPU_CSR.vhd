@@ -100,10 +100,12 @@ begin
         elsif cmd.CSR_we = CSR_mstatus then
             mstatus_d <= CSR_write(TO_CSR, mstatus_q, cmd.CSR_WRITE_mode);
         end if;
-        if cmd.CSR_we = CSR_mepc and cmd.MEPC_sel = MEPC_from_pc then
-            mepc_d <= CSR_write(pc, mepc_q,cmd.CSR_WRITE_mode );
-        elsif cmd.CSR_we = CSR_mepc and cmd.MEPC_sel = MEPC_from_csr then
-            mepc_d <= CSR_write(TO_CSR, mepc_q,cmd.CSR_WRITE_mode );
+        if cmd.CSR_we = CSR_mepc then
+            if cmd.MEPC_sel = MEPC_from_pc then
+                mepc_d <= CSR_write(pc, mepc_q,cmd.CSR_WRITE_mode );
+            elsif cmd.MEPC_sel = MEPC_from_csr then
+                mepc_d <= CSR_write(TO_CSR, mepc_q,cmd.CSR_WRITE_mode );
+            end if;
         end if;
         if cmd.MSTATUS_mie_set = '1' then
             --Valide l’écriture de la valeur 1 dans le bit 3 du registre mstatus (même sans avoir CSR_we = CSR_mstatus)
