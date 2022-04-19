@@ -28,4 +28,5 @@ traitant:
     #000005AD
     #000005AD
     #000005AD
+    #000005AD
     #pout_end

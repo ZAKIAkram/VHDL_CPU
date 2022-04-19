@@ -23,8 +23,9 @@ traitant:
     addi x3, x3, 4 # les deux lignes sont ´equivalentes `a li x3,0x0C200004
     lw x1, 0(x3) # par lecture de l’adresse 0x0c2000004
     mret
-    #max_cycle 150
+    #max_cycle 200
     #pout_start
+    #000005AD
     #000005AD
     #000005AD
     #000005AD
