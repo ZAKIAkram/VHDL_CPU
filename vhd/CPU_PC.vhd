@@ -321,18 +321,7 @@ begin
                 else
                     state_d <=  S_Error;
                 end if;
-            when S_LUI =>
-                    --rd <- ImmU + 0
-                    cmd.PC_X_sel <= PC_X_cst_x00;
-                    cmd.PC_Y_sel <= PC_Y_immU;
-                    cmd.RF_we <= '1';
-                    cmd.DATA_sel <= DATA_from_pc;
-                    -- lecture mem[PC]
-                    cmd.ADDR_sel <= ADDR_from_pc;
-                    cmd.mem_ce <= '1';
-                    cmd.mem_we <= '0';
-                    -- next state
-                    state_d <= S_Fetch;
+            
             when S_ADDI => 
                     cmd.ALU_Y_sel <= ALU_Y_immI;
                     cmd.ALU_op <= ALU_plus;
@@ -367,6 +356,19 @@ begin
 
                 -- next state
                 state_d <= S_Pre_Fetch;
+
+            when S_LUI =>
+                --rd <- ImmU + 0
+                cmd.PC_X_sel <= PC_X_cst_x00;
+                cmd.PC_Y_sel <= PC_Y_immU;
+                cmd.RF_we <= '1';
+                cmd.DATA_sel <= DATA_from_pc;
+                -- lecture mem[PC]
+                cmd.ADDR_sel <= ADDR_from_pc;
+                cmd.mem_ce <= '1';
+                cmd.mem_we <= '0';
+                -- next state
+                state_d <= S_Fetch;
 
 
 ---------- Instructions arithmétiques et logiques ----------
@@ -620,30 +622,59 @@ begin
                 cmd.ADDR_sel <= ADDR_from_pc;
                 --next state
                 state_d <= S_Fetch;
+---------- Instructions de saut ----------
+
+            when S_JAL =>
+                -- rd <-- pc + 4
+                cmd.PC_X_sel <= PC_X_pc;
+                cmd.PC_Y_sel <= PC_Y_cst_x04;
+                cmd.DATA_sel <= DATA_from_pc;
+                cmd.RF_we <= '1';
+                -- pc <-- pc + immJ
+                cmd.PC_we <= '1';
+                cmd.PC_sel <= PC_from_pc;
+                cmd.TO_PC_Y_sel <= TO_PC_Y_immJ;
+                -- next state
+                state_d <= S_Pre_Fetch;
+            when S_JALR =>
+                -- rd <-- pc + 4
+                cmd.PC_X_sel <= PC_X_pc;
+                cmd.PC_Y_sel <= PC_Y_cst_x04;
+                cmd.DATA_sel <= DATA_from_pc;
+                cmd.RF_we <= '1';
+                -- pc <-- rs1 + immI
+                cmd.PC_we <= '1';
+                cmd.PC_sel <= PC_from_alu;
+                cmd.ALU_Y_sel <= ALU_Y_immI;
+                cmd.ALU_op <= ALU_plus;
+                -- next state
+                state_d <= S_Pre_Fetch;
+
+---------- Instructions de chargement à partir de la mémoire ----------
             when S_Pre_LOAD => 
-              -- AD <- rs1 + immI
-              cmd.AD_we <= '1';
-              cmd.AD_Y_sel <= AD_Y_immI;
-              state_d <= S_LOAD;
+                -- AD <- rs1 + immI
+                cmd.AD_we <= '1';
+                cmd.AD_Y_sel <= AD_Y_immI;
+                state_d <= S_LOAD;
             when S_LOAD =>
-            -- mem[rs1 + immI]
-              cmd.mem_we   <= '0';
-              cmd.mem_ce   <= '1';
-              cmd.ADDR_sel <= ADDR_from_ad;
-            --next state
-              case status.IR(14 downto 12) is
-        		    when "000" => state_d <= S_LB;
-        		    when "001" => state_d <= S_LH;
-        		    when "010" => state_d <= S_LW;
-        		    when "100" => state_d <= S_LBU;
-        		    when "101" => state_d <= S_LHU;
-                when others => state_d <= S_Error;
-      		    end case;
+                -- mem[rs1 + immI]
+                cmd.mem_we   <= '0';
+                cmd.mem_ce   <= '1';
+                cmd.ADDR_sel <= ADDR_from_ad;
+                --next state
+                case status.IR(14 downto 12) is
+                    when "000" => state_d <= S_LB;
+                    when "001" => state_d <= S_LH;
+                    when "010" => state_d <= S_LW;
+                    when "100" => state_d <= S_LBU;
+                    when "101" => state_d <= S_LHU;
+                    when others => state_d <= S_Error;
+                end case;
             when S_LW =>
                 cmd.DATA_sel <= DATA_from_mem;
                 cmd.RF_we <= '1';
-        	cmd.RF_SIZE_sel <= RF_SIZE_word;
-        	cmd.RF_SIGN_enable <= '0';
+                cmd.RF_SIZE_sel <= RF_SIZE_word;
+                cmd.RF_SIGN_enable <= '0';
                 --next state
                 state_d <= S_Pre_Fetch;
             when S_LH =>
@@ -674,11 +705,12 @@ begin
                 cmd.RF_SIZE_sel <= RF_SIZE_byte;
                 --next state
                 state_d <= S_Pre_Fetch;
+---------- Instructions de sauvegarde en mémoire ----------
             when S_Pre_STORE => 
-              -- AD <- rs1 + immS
-              cmd.AD_we <= '1';
-              cmd.AD_Y_sel <= AD_Y_immS;
-              state_d <= S_STORE;
+                -- AD <- rs1 + immS
+                cmd.AD_we <= '1';
+                cmd.AD_Y_sel <= AD_Y_immS;
+                state_d <= S_STORE;
             when S_STORE =>
                 -- mem[immS + rs1]
                 cmd.mem_we   <= '1';
@@ -691,32 +723,10 @@ begin
                 elsif status.IR(14 downto 12) = "010" then
                     cmd.RF_SIZE_sel <= RF_SIZE_word;
                 end if;
-        	state_d <= S_Pre_Fetch;
-            when S_JAL =>
-                -- rd <-- pc + 4
-                cmd.PC_X_sel <= PC_X_pc;
-                cmd.PC_Y_sel <= PC_Y_cst_x04;
-                cmd.DATA_sel <= DATA_from_pc;
-                cmd.RF_we <= '1';
-                -- pc <-- pc + immJ
-                cmd.PC_we <= '1';
-                cmd.PC_sel <= PC_from_pc;
-                cmd.TO_PC_Y_sel <= TO_PC_Y_immJ;
-                -- next state
                 state_d <= S_Pre_Fetch;
-            when S_JALR =>
-                -- rd <-- pc + 4
-                cmd.PC_X_sel <= PC_X_pc;
-                cmd.PC_Y_sel <= PC_Y_cst_x04;
-                cmd.DATA_sel <= DATA_from_pc;
-                cmd.RF_we <= '1';
-                -- pc <-- rs1 + immI
-                cmd.PC_we <= '1';
-                cmd.PC_sel <= PC_from_alu;
-                cmd.ALU_Y_sel <= ALU_Y_immI;
-                cmd.ALU_op <= ALU_plus;
-                -- next state
-                state_d <= S_Pre_Fetch;
+
+---------- Instructions d'accès aux CSR ----------
+
             when S_INTERRUPTION => 
                 cmd.PC_sel <= PC_mtvec;
                 cmd.PC_we <= '1';
@@ -883,20 +893,6 @@ begin
                 cmd.cs.MSTATUS_mie_set <= '1';
                 --next state
                 state_d <= S_Pre_Fetch;
-                    
-            
-                
-
-
----------- Instructions de saut ----------
-
----------- Instructions de chargement à partir de la mémoire ----------
-
----------- Instructions de sauvegarde en mémoire ----------
-
----------- Instructions d'accès aux CSR ----------
-
-
             when others => null;
         end case;
 
