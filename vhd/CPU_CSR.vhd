@@ -93,6 +93,8 @@ begin
         -- les write enable
         if cmd.CSR_we = CSR_mtvec then
             mtvec_d <= CSR_write(TO_CSR, mtvec_q, cmd.CSR_WRITE_mode);
+            mtvec_d(0) <= '0';
+            mtvec_d(1) <= '0'
         elsif cmd.CSR_we = CSR_mie then
             mie_d <= CSR_write(TO_CSR,mie_q, cmd.CSR_WRITE_mode);
         elsif cmd.CSR_we = CSR_mstatus then
