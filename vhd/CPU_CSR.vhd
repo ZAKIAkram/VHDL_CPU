@@ -77,6 +77,10 @@ begin
             end if;
         end if;
     end process;
+    mtvec <= mtvec_q;
+    mepc <= mepc_q;
+    mip <= mip_q;
+    mie <= mie_q;
     TO_CSR <= rs1 when cmd.TO_CSR_Sel = TO_CSR_From_rs1 else imm;
     process(all)
     begin
