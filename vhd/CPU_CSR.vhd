@@ -106,6 +106,8 @@ begin
             elsif cmd.MEPC_sel = MEPC_from_csr then
                 mepc_d <= CSR_write(TO_CSR, mepc_q,cmd.CSR_WRITE_mode );
             end if;
+            mepc_d(0) <= '0';
+            mepc_d(1) <= '0';
         end if;
         if cmd.MSTATUS_mie_set = '1' then
             --Valide l’écriture de la valeur 1 dans le bit 3 du registre mstatus (même sans avoir CSR_we = CSR_mstatus)
