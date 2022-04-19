@@ -93,7 +93,6 @@ begin
         mie_d <= mie_q;
         mstatus_d <= mstatus_q;
         mepc_d <= mepc_q;
-
         -- les write enable
         if cmd.CSR_we = CSR_mtvec then
             mtvec_d <= CSR_write(TO_CSR, mtvec_q, cmd.CSR_WRITE_mode)(31 downto 2) & "00";
