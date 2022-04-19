@@ -100,12 +100,12 @@ begin
         elsif cmd.CSR_we = CSR_mstatus then
             mstatus_d <= CSR_write(TO_CSR, mstatus_q, cmd.CSR_WRITE_mode);
         end if;
-        if cmd.CSR_we = CSR_mepc then
-            if cmd.MEPC_sel = MEPC_from_pc then
-                mepc_d <= CSR_write(pc, mepc_q,cmd.CSR_WRITE_mode );
-            elsif cmd.MEPC_sel = MEPC_from_csr then
-                mepc_d <= CSR_write(TO_CSR, mepc_q,cmd.CSR_WRITE_mode );
-            end if;
+        if cmd.CSR_we = CSR_mepc and cmd.MEPC_sel = MEPC_from_pc then
+            mepc_d <= CSR_write(pc, mepc_q,cmd.CSR_WRITE_mode );
+            mepc_d(0) <= '0';
+            mepc_d(1) <= '0';
+        elsif cmd.CSR_we = CSR_mepc and cmd.MEPC_sel = MEPC_from_csr then
+            mepc_d <= CSR_write(TO_CSR, mepc_q,cmd.CSR_WRITE_mode );
             mepc_d(0) <= '0';
             mepc_d(1) <= '0';
         end if;
