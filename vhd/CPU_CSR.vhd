@@ -93,26 +93,26 @@ begin
         mie_d <= mie_q;
         mstatus_d <= mstatus_q;
         mepc_d <= mepc_q;
-        case cmd.CSR_we is
-            when CSR_mtvec =>
-                mtvec_d <= CSR_write(TO_CSR, mtvec_q, cmd.CSR_WRITE_mode);
-                mtvec_d(0) <= '0';
-                mtvec_d(1) <= '0';
-            when CSR_mie =>
-                mie_d <= CSR_write(TO_CSR,mie_q, cmd.CSR_WRITE_mode);
-            when CSR_mstatus =>
-                mstatus_d <= CSR_write(TO_CSR, mstatus_q, cmd.CSR_WRITE_mode);
-            when CSR_mepc =>
-                if cmd.MEPC_sel = MEPC_from_pc then
-                    mepc_d <= CSR_write(pc, mepc_q,cmd.CSR_WRITE_mode );
-                    mepc_d(0) <= '0';
-                    mepc_d(1) <= '0';
-                elsif cmd.MEPC_sel = MEPC_from_csr then
-                    mepc_d <= CSR_write(TO_CSR, mepc_q,cmd.CSR_WRITE_mode );
-                    mepc_d(0) <= '0';
-                    mepc_d(1) <= '0';
-                end if;
-        end case;
+
+        -- les write enable
+        if cmd.CSR_we = CSR_mtvec then
+            mtvec_d <= CSR_write(TO_CSR, mtvec_q, cmd.CSR_WRITE_mode);
+            mtvec_d(0) <= '0';
+            mtvec_d(1) <= '0';
+        elsif cmd.CSR_we = CSR_mie then
+            mie_d <= CSR_write(TO_CSR,mie_q, cmd.CSR_WRITE_mode);
+        elsif cmd.CSR_we = CSR_mstatus then
+            mstatus_d <= CSR_write(TO_CSR, mstatus_q, cmd.CSR_WRITE_mode);
+        end if;
+        if cmd.CSR_we = CSR_mepc and cmd.MEPC_sel = MEPC_from_pc then
+            mepc_d <= CSR_write(pc, mepc_q,cmd.CSR_WRITE_mode );
+            mepc_d(0) <= '0';
+            mepc_d(1) <= '0';
+        elsif cmd.CSR_we = CSR_mepc and cmd.MEPC_sel = MEPC_from_csr then
+            mepc_d <= CSR_write(TO_CSR, mepc_q,cmd.CSR_WRITE_mode );
+            mepc_d(0) <= '0';
+            mepc_d(1) <= '0';
+        end if;
         if cmd.MSTATUS_mie_set = '1' then
             --Valide l’écriture de la valeur 1 dans le bit 3 du registre mstatus (même sans avoir CSR_we = CSR_mstatus)
             mstatus_d(3) <= '1';
@@ -125,20 +125,19 @@ begin
         mip_d(7) <= mtip;
         mip_d(11) <= meip;
         --sortie CSR
-        case cmd.CSR_sel is
-            when CSR_from_mcause =>
-                CSR <= mcause_q;
-            when CSR_from_mip =>
-                CSR <= mip_q;
-            when CSR_from_mie =>
-                CSR <= mie_q;
-            when CSR_from_mstatus =>
-                CSR <= mstatus_q;
-            when CSR_from_mtvec =>
-                CSR <= mtvec_q;
-            when CSR_from_mepc =>
-                CSR <= mepc_q;
-        end case;
+        if cmd.CSR_sel = CSR_from_mcause then
+            CSR <= mcause_q;
+        elsif cmd.CSR_sel = CSR_from_mip then
+            CSR <= mip_q;
+        elsif cmd.CSR_sel = CSR_from_mie then
+            CSR <= mie_q;
+        elsif cmd.CSR_sel = CSR_from_mstatus then
+            CSR <= mstatus_q;
+        elsif cmd.CSR_sel = CSR_from_mtvec then
+            CSR <= mtvec_q;
+        elsif cmd.CSR_sel = CSR_from_mepc then
+            CSR <= mepc_q;
+        end if;
     end process;
     mtvec <= mtvec_q;
     mepc <= mepc_q;
